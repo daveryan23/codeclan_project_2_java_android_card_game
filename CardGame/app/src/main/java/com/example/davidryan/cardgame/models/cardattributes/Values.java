@@ -1,4 +1,4 @@
-package com.example.davidryan.cardgame.cardattributes;
+package com.example.davidryan.cardgame.models.cardattributes;
 
 /**
  * Created by davidryan on 22/09/2017.

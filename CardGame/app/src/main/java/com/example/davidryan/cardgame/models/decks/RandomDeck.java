@@ -1,7 +1,7 @@
-package com.example.davidryan.cardgame.decks;
+package com.example.davidryan.cardgame.models.decks;
 
-import com.example.davidryan.cardgame.cards.*;
-import com.example.davidryan.cardgame.cardattributes.*;
+import com.example.davidryan.cardgame.models.cards.*;
+import com.example.davidryan.cardgame.models.cardattributes.*;
 
 import java.util.ArrayList;
 import java.util.List;

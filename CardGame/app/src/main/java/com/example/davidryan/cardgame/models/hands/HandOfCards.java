@@ -1,4 +1,4 @@
-package com.example.davidryan.cardgame.hands;
+package com.example.davidryan.cardgame.models.hands;
 
 /**
  * Created by davidryan on 25/09/2017.

@@ -1,8 +1,8 @@
 package com.example.davidryan.cardgame;
 
-import com.example.davidryan.cardgame.cards.PlayingCard;
-import com.example.davidryan.cardgame.cardattributes.Suits;
-import com.example.davidryan.cardgame.cardattributes.Values;
+import com.example.davidryan.cardgame.models.cards.PlayingCard;
+import com.example.davidryan.cardgame.models.cardattributes.Suits;
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 
 import org.junit.Before;
 import org.junit.Test;

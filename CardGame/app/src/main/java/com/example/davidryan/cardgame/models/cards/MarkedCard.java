@@ -1,7 +1,7 @@
-package com.example.davidryan.cardgame.cards;
+package com.example.davidryan.cardgame.models.cards;
 
-import com.example.davidryan.cardgame.cardattributes.Suits;
-import com.example.davidryan.cardgame.cardattributes.Values;
+import com.example.davidryan.cardgame.models.cardattributes.Suits;
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 
 /**
  * Created by davidryan on 22/09/2017.

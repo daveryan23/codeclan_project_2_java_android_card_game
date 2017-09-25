@@ -1,10 +1,10 @@
 package com.example.davidryan.cardgame;
 
-import com.example.davidryan.cardgame.cards.PlayingCard;
-import com.example.davidryan.cardgame.cardattributes.Suits;
-import com.example.davidryan.cardgame.cardattributes.Values;
-import com.example.davidryan.cardgame.decks.RandomDeck;
-import com.example.davidryan.cardgame.decks.DeterministicDeck;
+import com.example.davidryan.cardgame.models.cards.PlayingCard;
+import com.example.davidryan.cardgame.models.cardattributes.Suits;
+import com.example.davidryan.cardgame.models.cardattributes.Values;
+import com.example.davidryan.cardgame.models.decks.RandomDeck;
+import com.example.davidryan.cardgame.models.decks.DeterministicDeck;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.example.davidryan.cardgame.players;
+package com.example.davidryan.cardgame.models.players;
 
 /**
  * Created by davidryan on 22/09/2017.

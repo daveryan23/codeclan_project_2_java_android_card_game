@@ -1,6 +1,7 @@
-package com.example.davidryan.cardgame.players;
+package com.example.davidryan.cardgame.models.players;
 
-import com.example.davidryan.cardgame.cards.Cardy;
+import com.example.davidryan.cardgame.models.cards.Cardy;
+import com.example.davidryan.cardgame.models.games.Gamey;
 
 import java.util.List;
 
@@ -9,6 +10,19 @@ import java.util.List;
  */
 
 public interface Playery {
+
+    // From stuff above (Game)
+    void reset(Gamey game);
+    void placeBet(Gamey game);
+    void dealCard(Gamey game, Cardy card);
+    int playTurn(Gamey game);
+    void resolveBets(Gamey game, int score);
+
+
+
+
+    // From stuff below...
+
 
     int countCards();
     int scoreCards();
