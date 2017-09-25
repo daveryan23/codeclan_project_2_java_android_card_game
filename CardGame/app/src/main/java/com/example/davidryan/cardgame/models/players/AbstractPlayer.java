@@ -1,5 +1,14 @@
 package com.example.davidryan.cardgame.models.players;
 
+import com.example.davidryan.cardgame.models.cards.Cardy;
+import com.example.davidryan.cardgame.models.games.Gamey;
+import com.example.davidryan.cardgame.models.hands.CardHand;
+import com.example.davidryan.cardgame.models.hands.Handy;
+import com.example.davidryan.cardgame.models.hands.SplitHand;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by davidryan on 22/09/2017.
  */
@@ -7,112 +16,100 @@ package com.example.davidryan.cardgame.models.players;
 public abstract class AbstractPlayer implements Playery {
     private String name;
     private int money;
+    private int moneyAtRisk;
     private List<Handy> hands;
 
     public AbstractPlayer(String name, int money) {
         this.name = name;
         this.money = money;
+        moneyAtRisk = 0;
         hands = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int scoreCards() {
-        int result = 0;
-        for (Cardy card: cards) {
-            result += card.getScore();
+    public void reset(Gamey game) {
+        for (Handy hand: hands) {
+            money += hand.returnMoney();
+            game.returnCards(hand.returnCards());
         }
-        return result;
+        hands.clear();
+        moneyAtRisk = 0;
     }
 
-    @Override
-    public boolean handIsBust() {
-        return (scoreCards()>21);
+    private int moneyAvailable() {
+        return money - moneyAtRisk;
     }
 
-    @Override
-    public boolean handHasAHigherSoftScoreAvailable() {
-        if (scoreCards()>11) {
+    public boolean placeInitialBet(Gamey game) {
+        // If player doesn't have the minimum bet then false
+        // This will remove player from table
+        // Otherwise true
+        int minBet = game.minimumBet();
+        // Default behaviour is to do minimum bet
+        // Can override this in human player classes
+        int theBet = minBet;
+        if (moneyAvailable()<theBet) {
             return false;
         }
-        for (Cardy card: cards) {
-            if (card.isAce()) {
-                // If player holds at least one Ace
-                // and has 11 or less points
-                // (when scoring Ace as 1)
-                // then a soft score 10 points higher is available.
-                return true;
+        Handy hand = new CardHand(theBet);
+        hands.add(hand);
+        moneyAtRisk += theBet;
+        return true;
+    }
+
+    @Override
+    public void dealInitialCard(Gamey game, Cardy card) {
+        // This will go to the first (and presumably only) hand
+        hands.get(0).receiveFaceUp(card);
+    }
+
+    public int playTurn(Gamey game, boolean isDealer) {
+
+        // Rules are slightly different on a dealer
+        // Can factor out to a subclass of Bot, perhaps?
+
+        int handIndex = 0;
+        while (handIndex < hands.size()) {
+            Handy hand = hands.get(handIndex);
+            boolean handSplittable = hand.playHand();
+            if (handSplittable) {
+                if (!isDealer) {
+                    // Split the hand
+                    int splitBet = hand.getBet();
+                    if (splitBet<=moneyAvailable()) {
+                        splitBet = hand.returnMoney();
+                        moneyAtRisk += splitBet;
+                        Handy newHand1 = new SplitHand(splitBet);
+                        Handy newHand2 = new SplitHand(splitBet);
+                        newHand1.receiveFaceUp(hand.);
+
+
+                    }
+                }
             }
+
+            handIndex++;
         }
-        return false;
+        boolean turnFinished = false;
+
+
+        // NEED TO WORK OUT SCORE ON TURN - MAINLY FOR DEALER SIDE
+
+        return 0;
     }
 
-    @Override
-    public boolean handIsBlackJack() {
-        // Blackjack is:
-        // 2 cards only
-        // Scoring 11
-        // With a higher soft score (of 21) available
-        if (countCards()>2) {
-            return false;
+    public void resolveBets(Gamey game, int score) {
+        for (Handy hand: hands) {
+            int moneyWonByPlayer = hand.resolveBet(this, score);
+            money += moneyWonByPlayer;
+            game.reduceDealerMoney(moneyWonByPlayer);
         }
-        if (scoreCards()==11) {
-            if (handHasAHigherSoftScoreAvailable()) {
-                return true;
-            }
-        }
-        return false;
+        moneyAtRisk = 0;
     }
 
-    @Override
-    public int countCards() {
-        return cards.size();
+    public void incrementMoney(int money) {
+        this.money += money;
     }
 
-    @Override
-    public String describeCards() {
-        String theDescription = "";
-        int numberOfCards = countCards();
-        for (int i=0; i<numberOfCards; i++) {
-            Cardy card = cards.get(i);
-            boolean visible = visibilities.get(i);
-            String textToAdd = (visible) ? card.toString() : "??";
-            theDescription += textToAdd + ", ";
-        }
-        theDescription = theDescription.substring(0, theDescription.length()-2);  // Lose the trailing ', '
-        return theDescription;
-    }
 
-    @Override
-    public String toString() {
-        return name + ": " + describeCards();
-    }
-
-    @Override
-    public void receive(Cardy card, boolean visible) {
-        cards.add(card);
-        visibilities.add(visible);
-    }
-
-    @Override
-    public void receiveFaceUp(Cardy card) {
-        receive(card, true);
-    }
-
-    @Override
-    public void receiveFaceDown(Cardy card) {
-        receive(card, false);
-    }
-
-    @Override
-    public List<Cardy> returnCards() {
-        List<Cardy> theCardsToReturn = new ArrayList<>(cards);
-        cards.clear();
-        visibilities.clear();
-        return theCardsToReturn;
-    }
 
 }

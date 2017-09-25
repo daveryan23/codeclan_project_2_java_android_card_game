@@ -10,4 +10,5 @@ public class BotPlayer extends AbstractPlayer {
         super(name, money);
     }
 
+
 }

@@ -13,10 +13,11 @@ public interface Playery {
 
     // From stuff above (Game)
     void reset(Gamey game);
-    void placeBet(Gamey game);
-    void dealCard(Gamey game, Cardy card);
-    int playTurn(Gamey game);
+    boolean placeInitialBet(Gamey game);
+    void dealInitialCard(Gamey game, Cardy card);
+    int playTurn(Gamey game, boolean isDealer);
     void resolveBets(Gamey game, int score);
+    void incrementMoney(int money);
 
 
 
@@ -24,18 +25,15 @@ public interface Playery {
     // From stuff below...
 
 
-    int countCards();
-    int scoreCards();
-    boolean handIsBust();
-    boolean handHasAHigherSoftScoreAvailable();
-    boolean handIsBlackJack();
-
-    void receive(Cardy card, boolean visible);
-    void receiveFaceUp(Cardy card);
-    void receiveFaceDown(Cardy card);
-
-    List<Cardy> returnCards();
-
-    String describeCards();
-    String toString();
+//    int countCards();
+//    int scoreCards();
+//    boolean handIsBust();
+//    boolean handHasAHigherSoftScoreAvailable();
+//    boolean handIsBlackJack();
+//
+//
+//    List<Cardy> returnCards();
+//
+//    String describeCards();
+//    String toString();
 }

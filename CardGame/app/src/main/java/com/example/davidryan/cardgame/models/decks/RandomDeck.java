@@ -30,9 +30,14 @@ public class RandomDeck implements Decky {
         return chosenCard;
     }
 
+//    @Override
+//    public void returnToBottom(Cardy card) {
+//        cards.add(card);
+//    }
+
     @Override
-    public void returnToBottom(Cardy card) {
-        cards.add(card);
+    public void returnCards(List<Cardy> cards) {
+        this.cards.addAll(cards);
     }
 
     public void shuffle() {

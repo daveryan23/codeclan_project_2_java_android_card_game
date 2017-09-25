@@ -13,15 +13,23 @@ import java.util.List;
  */
 
 public class BlackjackGame extends CardGame {
+    private int minimumBet;
+    private int betIncrement;
     private Playery dealer;
     private List<Playery> players;
 
-    public BlackjackGame(Decky deck, Playery dealer, Logging logger, Scanning scanner) {
+    public BlackjackGame(int minimumBet, int betIncrement, Decky deck, Playery dealer, Logging logger, Scanning scanner) {
         super(deck, logger, scanner);
+        this.minimumBet = minimumBet;
+        this.betIncrement = betIncrement;
         this.dealer = dealer;
         players = new ArrayList<>();
     }
 
+    @Override
+    public int minimumBet() {
+        return minimumBet;
+    }
 
     public void add(Playery player) {
         players.add(player);
@@ -33,7 +41,7 @@ public class BlackjackGame extends CardGame {
 
     public void playGame() {
         checkPlayersAndDealerReset();
-        placeBets();
+        placeInitialBets();
         dealFaceUpTo(players);
         dealFaceUpTo(dealer);
         dealFaceUpTo(players);
@@ -51,14 +59,18 @@ public class BlackjackGame extends CardGame {
         dealer.reset(this);
     }
 
-    private void placeBets() {
+    private void placeInitialBets() {
         for (Playery player: players) {
-            player.placeBet(this);
+            boolean playerPlaying = player.placeInitialBet(this);
+
+            // HOW TO STOP PLAYER FROM DOING ANYTHING FURTHER
+            // IF false, E.G. NO BET HAS BEEN PLACED?
+
         }
     }
 
     private void dealFaceUpTo(Playery player) {
-        player.dealCard(this, getDeck().deal());
+        player.dealInitialCard(this, getDeck().deal());
     }
 
     private void dealFaceUpTo(List<Playery> players) {
@@ -69,12 +81,12 @@ public class BlackjackGame extends CardGame {
 
     private void playersPlay() {
         for (Playery player: players) {
-            player.playTurn(this);
+            player.playTurn(this, false);
         }
     }
 
     private int dealerPlays() {
-        return dealer.playTurn(this);
+        return dealer.playTurn(this, true);
     }
 
     private void resolveAllBets(int score) {
@@ -90,4 +102,8 @@ public class BlackjackGame extends CardGame {
         dealer.reset(this);
     }
 
+    @Override
+    public void reduceDealerMoney(int moneyWonByPlayer) {
+        dealer.incrementMoney(-moneyWonByPlayer);
+    }
 }

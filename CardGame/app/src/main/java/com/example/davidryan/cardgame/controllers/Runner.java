@@ -20,9 +20,13 @@ public class Runner {
     public Runner() {
         Decky deck = new RandomDeck();
         deck.setupWithMarkedPacks(2);
+
+        // WANT TO SHUFFLE THE PACK HERE!!!
+        // OTHERWISE ITS IN THE ORIGINAL ORDER!!!
+
         Playery dealer = new BotPlayer("Big Tom", 100000);
 
-        game = new BlackjackGame(deck, dealer, new ConsoleLogger(), new KeyboardScanner());
+        game = new BlackjackGame(2, 2, deck, dealer, new ConsoleLogger(), new KeyboardScanner());
 
         Playery bob = new BotPlayer("Bob", 350);
         Playery dave = new HumanPlayer("Dave", 100);
