@@ -1,5 +1,7 @@
 package com.example.davidryan.cardgame.models.games;
 
+import com.example.davidryan.cardgame.models.cardattributes.Values;
+import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.decks.Decky;
 import com.example.davidryan.cardgame.models.players.Playery;
 import com.example.davidryan.cardgame.views.inputs.Loggy;
@@ -26,6 +28,8 @@ public class BlackjackGame extends CardGame {
         players = new ArrayList<>();
     }
 
+    // Getters
+
     @Override
     public int minimumBet() {
         return minimumBet;
@@ -35,6 +39,25 @@ public class BlackjackGame extends CardGame {
     public int betIncrement() {
         return betIncrement;
     }
+
+    // Dealer interaction
+
+    @Override
+    public int dealerTopCardScore() {
+        return dealer.topCardScore();
+    }
+
+    @Override
+    public void reduceDealerMoney(int moneyWonByPlayer) {
+        dealer.incrementMoney(-moneyWonByPlayer);
+    }
+
+    @Override
+    public String describeDealerHand() {
+        return dealer.describeFirstHand();
+    }
+
+    // Blackjack game-specific items
 
     public void add(Playery player) {
         players.add(player);
@@ -108,8 +131,4 @@ public class BlackjackGame extends CardGame {
         dealer.reset(this);
     }
 
-    @Override
-    public void reduceDealerMoney(int moneyWonByPlayer) {
-        dealer.incrementMoney(-moneyWonByPlayer);
-    }
 }

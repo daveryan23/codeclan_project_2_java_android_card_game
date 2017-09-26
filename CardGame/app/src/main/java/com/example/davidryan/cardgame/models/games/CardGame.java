@@ -22,7 +22,8 @@ public abstract class CardGame implements Gamey {
         this.scanner = scanner;
     }
 
-    public boolean loopGameUntilFalse() {
+    @Override
+    public boolean askUserToPlayAgain() {
         boolean result = false;
         outputLine("");
         outputString("Play another time? (y/n) ");
@@ -36,6 +37,8 @@ public abstract class CardGame implements Gamey {
         return result;
     }
 
+    // Deck interaction
+
     @Override
     public Decky getDeck() {
         return deck;
@@ -45,6 +48,13 @@ public abstract class CardGame implements Gamey {
     public Cardy dealCardFromDeck() {
         return deck.deal();
     }
+
+    @Override
+    public void returnCards(List<Cardy> cards) {
+        deck.returnCards(cards);
+    }
+
+    // Input / output
 
     @Override
     public void outputString(String message) {
@@ -67,8 +77,4 @@ public abstract class CardGame implements Gamey {
         return inputLine();
     }
 
-    @Override
-    public void returnCards(List<Cardy> cards) {
-        deck.returnCards(cards);
-    }
 }

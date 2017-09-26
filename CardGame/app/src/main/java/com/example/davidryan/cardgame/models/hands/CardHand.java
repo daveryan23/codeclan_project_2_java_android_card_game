@@ -1,5 +1,6 @@
 package com.example.davidryan.cardgame.models.hands;
 
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.players.Playery;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 
 public class CardHand implements Handy {
+    private String label;
     private int bet;
     private List<Cardy> cards;
     private List<Boolean> visibilities;
@@ -19,7 +21,8 @@ public class CardHand implements Handy {
     private int lowerScore;
     private int higherScore;
 
-    public CardHand(int bet) {
+    public CardHand(String label, int bet) {
+        this.label = label;
         this.bet = bet;
         cards = new ArrayList<>();
         visibilities = new ArrayList<>();
@@ -29,8 +32,31 @@ public class CardHand implements Handy {
     }
 
     @Override
+    public String getLabel() {
+        return label;
+    }
+
+    @Override
     public int getBet() {
         return bet;
+    }
+
+    @Override
+    public String toString() {
+        return label + " has " + describeCards();
+    }
+
+    private String describeCards() {
+        String theDescription = "";
+        int numberOfCards = countCards();
+        for (int i = 0; i < numberOfCards; i++) {
+            Cardy card = cards.get(i);
+            boolean visible = visibilities.get(i);
+            String textToAdd = (visible) ? card.toString() : "??";
+            theDescription += textToAdd + ", ";
+        }
+        theDescription = theDescription.substring(0, theDescription.length() - 2);  // Lose the trailing ', '
+        return theDescription;
     }
 
     @Override
@@ -81,16 +107,13 @@ public class CardHand implements Handy {
         return (lowerScore() > 21);
     }
 
-    private boolean handHasAHigherSoftScoreAvailable() {
-        return (lowerScore() < higherScore());
-    }
-
     private boolean handIsBlackJack() {
         // Blackjack is getting a higherScore of 21 on 2 cards only.
         // This has to be an Ace and one of 10, J, Q, K
         return ( (countCards()==2) && (higherScore()==21) );
     }
 
+    @Override
     public int finalScore() {
         // This is the higherScore except for
         // 1) Bust
@@ -104,37 +127,23 @@ public class CardHand implements Handy {
         return higherScore();
     }
 
-    public String describeCards() {
-        String theDescription = "";
-        int numberOfCards = countCards();
-        for (int i = 0; i < numberOfCards; i++) {
-            Cardy card = cards.get(i);
-            boolean visible = visibilities.get(i);
-            String textToAdd = (visible) ? card.toString() : "??";
-            theDescription += textToAdd + ", ";
-        }
-        theDescription = theDescription.substring(0, theDescription.length() - 2);  // Lose the trailing ', '
-        return theDescription;
-    }
-
-//    public String toString() {
-//        return name + ": " + describeCards();
-//    }
-
     private void receive(Cardy card, boolean visible) {
         cards.add(card);
         visibilities.add(visible);
         scoresUpToDate = false;
     }
 
+    @Override
     public void receiveFaceUp(Cardy card) {
         receive(card, true);
     }
 
+    @Override
     public void receiveFaceDown(Cardy card) {
         receive(card, false);
     }
 
+    @Override
     public List<Cardy> returnCards() {
         List<Cardy> theCardsToReturn = new ArrayList<>(cards);
         cards.clear();
@@ -149,6 +158,7 @@ public class CardHand implements Handy {
         return moneyReturned;
     }
 
+    @Override
     public final int countChoices(Playery player) {
         int count = 1;   // Can always stand!
         if (canHit(player)) {count++;}
@@ -225,7 +235,7 @@ public class CardHand implements Handy {
                 // Player can only Stand. Exit loop.
                 stillLooping = false;
             } else {
-                playerDecision = player.makeDecision(this);
+                playerDecision = player.makeDecision(game, this);
                 switch (playerDecision) {
                     case STAND:
                         stillLooping = false;
@@ -282,6 +292,17 @@ public class CardHand implements Handy {
         return moneyWonByPlayer;
     }
 
+    @Override
+    public int topCardScore() {
+        if (cards.size()==0) {
+            return 0;
+        }
+        Cardy card = cards.get(0);
+        if (card.isAce()) {
+            return 11;
+        }
+        return card.getScore();
+    }
 }
 
 

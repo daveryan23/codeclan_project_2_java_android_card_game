@@ -1,5 +1,6 @@
 package com.example.davidryan.cardgame.models.games;
 
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.decks.Decky;
 
@@ -11,14 +12,24 @@ import java.util.List;
 
 public interface Gamey {
 
-    Decky getDeck();
-    void returnCards(List<Cardy> cards);
-
+    // Getters
     int minimumBet();
     int betIncrement();
-    void reduceDealerMoney(int moneyWonByPlayer);
-    Cardy dealCardFromDeck();
 
+    // Deck interaction
+    Decky getDeck();
+    Cardy dealCardFromDeck();
+    void returnCards(List<Cardy> cards);
+
+    // Running a game
+    boolean askUserToPlayAgain();
+
+    // Dealer interaction
+    int dealerTopCardScore();
+    String describeDealerHand();
+    void reduceDealerMoney(int moneyWonByPlayer);
+
+    // Input/Output
     void outputString(String message);
     void outputLine(String message);
     String inputLine();

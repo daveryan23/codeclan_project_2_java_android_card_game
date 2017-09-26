@@ -6,8 +6,8 @@ package com.example.davidryan.cardgame.models.hands;
 
 public class SplitHand extends CardHand {
 
-    public SplitHand(int bet) {
-        super(bet);
+    public SplitHand(String label, int bet) {
+        super(label, bet);
     }
 
     // Only function of a split hand is to score 21 rather than 22 on a blackjack!

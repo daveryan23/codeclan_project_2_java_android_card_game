@@ -1,5 +1,6 @@
 package com.example.davidryan.cardgame.models.players;
 
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.hands.CardHand;
@@ -70,31 +71,16 @@ public abstract class AbstractPlayer implements Playery {
         if (moneyAvailable()<theBet) {
             return false;
         }
-        Handy hand = new CardHand(theBet);
+        Handy hand = new CardHand(getName(), theBet);
         hands.add(hand);
         moneyAtRisk += theBet;
         return true;
     }
 
     @Override
-    public int getInitialBetAmount(Gamey game) {
-        // Override this in human, bot and dealer subclasses
-        return game.minimumBet();
-    }
-
-    @Override
     public void dealInitialCard(Gamey game, Cardy card) {
         // This will go to the first (and presumably only) hand
         hands.get(0).receiveFaceUp(card);
-    }
-
-    @Override
-    public int getScoreOfFirstHand() {
-        int score = 0;
-        if (hands.size() > 0) {
-            score = hands.get(0).finalScore();
-        }
-        return score;
     }
 
     @Override
@@ -107,19 +93,13 @@ public abstract class AbstractPlayer implements Playery {
             boolean splitRequested = hand.playHand(game, this);
             if (splitRequested) {
                 // Assume split is checked on the Hand!
-                splitHand(game, hand);
+                splitHand(game, hand, handIndex);
             }
             handIndex++;
         }
     }
 
-    @Override
-    public HandDecisions makeDecision(Handy hand) {
-        // If no subclass has overridden this, do nothing!
-        return HandDecisions.STAND;
-    }
-
-    private void splitHand(Gamey game, Handy hand) {
+    private void splitHand(Gamey game, Handy hand, int handIndex) {
         // Get all bets and cards back from the Hand
         List<Cardy> cards = hand.returnCards();
         int bet = hand.returnMoney();
@@ -127,7 +107,8 @@ public abstract class AbstractPlayer implements Playery {
         // For each returned card, set up a new Hand
         // This should have been checked earlier when requesting split.
         for (Cardy splitCard: cards) {
-            Handy newHand = new SplitHand(bet);
+            String handLabel = getName() + " (" + handIndex + ")";
+            Handy newHand = new SplitHand(handLabel, bet);
             moneyAtRisk += bet;
             newHand.receiveFaceUp(splitCard);
             Cardy dealtCard = game.dealCardFromDeck();
@@ -145,6 +126,45 @@ public abstract class AbstractPlayer implements Playery {
             game.reduceDealerMoney(moneyWonByPlayer);
         }
         moneyAtRisk = 0;
+    }
+
+    // DEALER METHODS
+
+    @Override
+    public int topCardScore() {
+        if (hands.size()==0) {
+            return 0;
+        }
+        return hands.get(0).topCardScore();
+    }
+
+    @Override
+    public int getScoreOfFirstHand() {
+        int score = 0;
+        if (hands.size() > 0) {
+            score = hands.get(0).finalScore();
+        }
+        return score;
+    }
+
+    @Override
+    public String describeFirstHand() {
+        if (1<=hands.size()) {
+            return hands.get(0).toString();
+        }
+        return getName() + " does not have a hand of cards";
+    }
+
+    // METHODS TO OVERRIDE IN CONCRETE SUBCLASSES
+
+    @Override
+    public int getInitialBetAmount(Gamey game) {
+        return game.minimumBet();
+    }
+
+    @Override
+    public HandDecisions makeDecision(Gamey game, Handy hand) {
+        return HandDecisions.STAND;
     }
 
 }

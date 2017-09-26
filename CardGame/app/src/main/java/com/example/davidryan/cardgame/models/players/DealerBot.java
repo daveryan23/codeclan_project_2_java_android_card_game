@@ -22,7 +22,7 @@ public class DealerBot extends BotPlayer {
     }
 
     @Override
-    public HandDecisions makeDecision(Handy hand) {
+    public HandDecisions makeDecision(Gamey game, Handy hand) {
 
         // Dealer hand decisions here
         // Default is to hit

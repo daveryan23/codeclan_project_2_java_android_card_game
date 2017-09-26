@@ -4,6 +4,9 @@ import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.hands.HandDecisions;
 import com.example.davidryan.cardgame.models.hands.Handy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by davidryan on 25/09/2017.
  */
@@ -48,13 +51,45 @@ public class HumanPlayer extends AbstractPlayer {
     }
 
     @Override
-    public HandDecisions makeDecision(Handy hand) {
+    public HandDecisions makeDecision(Gamey game, Handy hand) {
 
-        // THIS IS THE HUMAN PLAYER
-        // WANT TO USE INPUT TO SELECT BETWEEN SEVERAL OPTIONS
-        
-        // If no subclass has overridden this, do nothing!
-        return HandDecisions.STAND;
+        List<String> playerChoices = new ArrayList<>();
+        playerChoices.add("Stand (S)");
+        if (hand.canHit(this)) {playerChoices.add("Hit (H)");}
+        if (hand.canDouble(this)) {playerChoices.add("Double (D)");}
+        if (hand.canSplit(this)) {playerChoices.add("Split (Y)");}
+
+        String questionText = "Do you want to: ";
+        for (String choice: playerChoices) {
+            questionText += choice + ", ";
+        }
+        questionText = questionText.substring(0, questionText.length()-2) + "?";
+
+        HandDecisions result = HandDecisions.STAND;
+        boolean needChoice = true;
+        while (needChoice) {
+            game.outputString("Dealer has " + game.describeDealerHand());
+            game.outputString( ", " + hand.toString());
+            String decision = game.askQuestion(questionText);
+
+            if (decision.length()>0) {
+                String leftChar = decision.substring(0, 0).toLowerCase();
+                if ( hand.canHit(this) && leftChar.equalsIgnoreCase("h") ) {
+                    result = HandDecisions.HIT;
+                    needChoice = false;
+                } else if ( hand.canDouble(this) && leftChar.equalsIgnoreCase("d") ) {
+                    result = HandDecisions.DOUBLE;
+                    needChoice = false;
+                } else if ( hand.canSplit(this) && leftChar.equalsIgnoreCase("y") ) {
+                    result = HandDecisions.SPLIT;
+                    needChoice = false;
+                } else if ( leftChar.equalsIgnoreCase("s") ) {
+                    result = HandDecisions.STAND;
+                    needChoice = false;
+                }
+            }
+        }
+        return result;
     }
 
 }

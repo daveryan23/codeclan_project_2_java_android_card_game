@@ -1,5 +1,6 @@
 package com.example.davidryan.cardgame.models.hands;
 
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.players.Playery;
@@ -12,7 +13,10 @@ import java.util.List;
 
 public interface Handy {
 
+    String getLabel();
     int getBet();
+    String toString();
+
     int countCards();
     int returnMoney();
     List<Cardy> returnCards();
@@ -33,5 +37,7 @@ public interface Handy {
     int finalScore();
 
     int resolveBet(Playery player, int score);
+
+    int topCardScore();     // Ace = 11. K, Q, J = 10. Others are face value. Missing = 0.
 
 }

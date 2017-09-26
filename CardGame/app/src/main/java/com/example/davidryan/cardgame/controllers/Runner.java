@@ -47,7 +47,7 @@ public class Runner {
         game.outputLine("");
         game.outputLine("Welcome to the Blackjack game!");
         game.playGame();
-        while (!game.loopGameUntilFalse()) {
+        while (!game.askUserToPlayAgain()) {
             game.playGame();
         }
         game.outputLine("");

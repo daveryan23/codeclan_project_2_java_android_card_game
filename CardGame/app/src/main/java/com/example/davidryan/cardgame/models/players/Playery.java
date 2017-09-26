@@ -1,5 +1,6 @@
 package com.example.davidryan.cardgame.models.players;
 
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.hands.HandDecisions;
@@ -13,23 +14,25 @@ import java.util.List;
 
 public interface Playery {
 
+    // General methods
     String getName();
     int moneyAvailable();
     boolean isDealer();
     void reset(Gamey game);
     boolean setupInitialBetAndHand(Gamey game);
-    int getInitialBetAmount(Gamey game);
     void dealInitialCard(Gamey game, Cardy card);
     void playTurn(Gamey game);
-    int getScoreOfFirstHand();
     void resolveBets(Gamey game, int score);
     void incrementMoney(int money);
     void riskMoney(int moneyAtRisk);
 
-    // Implement this on concrete subclasses.
-    // Main ones are HumanPlayer and BotPlayer
-    HandDecisions makeDecision(Handy hand);
+    // Methods mainly for the dealer
+    int topCardScore();
+    int getScoreOfFirstHand();
+    String describeFirstHand();
 
-    //    String toString();
+    // Methods to override in concrete subclasses
+    int getInitialBetAmount(Gamey game);
+    HandDecisions makeDecision(Gamey game, Handy hand);
 
 }
