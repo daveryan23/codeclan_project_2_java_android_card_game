@@ -6,14 +6,35 @@ package com.example.davidryan.cardgame.views.inputs;
 
 public class ConsoleLogger implements Loggy {
 
+    // Try / Sleep / Catch / Finally has been used
+    // to slow down the output
+    // and to prevent error messages from getting mixed up
+    // with messages sent earlier
+
     @Override
     public void outputString(String message) {
-        System.out.print(message);
+
+        try {
+            Thread.sleep(100);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        } finally {
+            System.out.print(message);
+        }
+
     }
 
     @Override
     public void outputLine(String message) {
-        System.out.println(message);
+
+        try {
+            Thread.sleep(100);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        } finally {
+            System.out.println(message);
+        }
+
     }
 
 }

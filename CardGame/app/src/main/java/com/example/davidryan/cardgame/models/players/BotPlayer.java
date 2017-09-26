@@ -16,8 +16,19 @@ public class BotPlayer extends AbstractPlayer {
 
     @Override
     public int getInitialBetAmount(Gamey game) {
-        // A bot plays always the minimum bet.
-        return game.minimumBet();
+
+        String playerName = getName();
+        int minBet = game.minimumBet();
+        int betAmount = 0;
+
+        if (moneyAvailable() < minBet) {
+            game.outputLine(playerName + " has not got enough money for the minimum bet");
+        } else {
+            betAmount = minBet;
+            game.outputLine(playerName + " has bet " + betAmount + " pence on this hand");
+        }
+
+        return betAmount;
     }
 
     @Override

@@ -26,13 +26,11 @@ public class HumanPlayer extends AbstractPlayer {
         int betAmount = 0;
 
         if (moneyAvailable() < minBet) {
-            game.outputLine("");
-            game.outputLine(playerName + " is very poor and cannot afford the minimum bet!");
+            game.outputLine(playerName + " has not got enough money for the minimum bet");
         } else {
             // Get user input
-            game.outputLine("");
-            game.outputLine("Game minimum bet is " + minBet + " pence, going up in steps of " + betInc + ".");
-            String betAmountString = game.askQuestion(playerName + ": how much do you want to bet? (in pence)");
+            game.outputLine("Game minimum bet is " + minBet + " pence, going up in steps of " + betInc);
+            String betAmountString = game.askQuestion(playerName + ": how much do you want to bet, in pence?");
 
             // Parse user input
             betAmount = Integer.parseInt(betAmountString);
@@ -43,8 +41,7 @@ public class HumanPlayer extends AbstractPlayer {
             betAmount -= theRes;
             // Should now have a bet amount compatible with the minimum bet and bet increment
 
-            game.outputLine("");
-            game.outputLine(playerName + " is playing a hand for " + betAmount + " pence.");
+            game.outputLine(playerName + " has bet " + betAmount + " pence on this hand");
         }
 
         return betAmount;

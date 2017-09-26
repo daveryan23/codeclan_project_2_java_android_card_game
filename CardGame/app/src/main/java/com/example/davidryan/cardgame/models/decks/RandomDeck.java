@@ -2,6 +2,7 @@ package com.example.davidryan.cardgame.models.decks;
 
 import com.example.davidryan.cardgame.models.cards.*;
 import com.example.davidryan.cardgame.models.cardattributes.*;
+import com.example.davidryan.cardgame.models.games.Gamey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class RandomDeck implements Decky {
         cards = new ArrayList<>();
     }
 
+    @Override
     public int numberOfCards() {
         return cards.size();
     }
@@ -30,34 +32,17 @@ public class RandomDeck implements Decky {
         return chosenCard;
     }
 
-//    @Override
-//    public void returnToBottom(Cardy card) {
-//        cards.add(card);
-//    }
-
     @Override
     public void returnCards(List<Cardy> cards) {
         this.cards.addAll(cards);
     }
 
-    public void shuffle() {
-        Random random = new Random();
-        List<Cardy> tempCardArray = new ArrayList<Cardy>(cards);
-        cards.clear();
-        int iterations = tempCardArray.size();
-        Cardy transferCard;
-        for (int i=0; i<iterations; i++) {
-            int randomIndex = random.nextInt(iterations-i);
-            transferCard = tempCardArray.get(randomIndex);
-            cards.add(transferCard);
-            tempCardArray.remove(randomIndex);
-        }
-    }
-
+    @Override
     public void setupWithPacks(int numberOfPacks) {
         privateSetupWithPacks(numberOfPacks, false);
     }
 
+    @Override
     public void setupWithMarkedPacks(int numberOfPacks) {
         privateSetupWithPacks(numberOfPacks, true);
     }
@@ -76,6 +61,7 @@ public class RandomDeck implements Decky {
         }
     }
 
+    @Override
     public void setupTestSet() {
         cards.add(new PlayingCard(Values.TEN, Suits.CLUBS));
         cards.add(new PlayingCard(Values.ACE, Suits.SPADES));
@@ -85,6 +71,39 @@ public class RandomDeck implements Decky {
         cards.add(new PlayingCard(Values.THREE, Suits.CLUBS));
         cards.add(new MarkedCard(Values.QUEEN, Suits.SPADES, "z"));
         cards.add(new PlayingCard(Values.EIGHT, Suits.DIAMONDS));
+    }
+
+    @Override
+    public String sneakAPeekAtTheCards(Gamey game) {
+        String text = "";
+        int numCards = numberOfCards();
+        if (numCards>0) {
+            text = "Deck has " + numCards + " cards in it. Naughty! You are sneaking a look at the cards! :) ";
+            for (Cardy card: cards) {
+                text += card.toString() + " ";
+            }
+            text = text.substring(0, text.length()-1);
+        } else {
+            text = "Deck does not have any cards in it yet";
+        }
+        return text;
+    }
+
+    // Can override this method for a deterministic pack
+
+    @Override
+    public void shuffle() {
+        Random random = new Random();
+        List<Cardy> tempCardArray = new ArrayList<Cardy>(cards);
+        cards.clear();
+        int iterations = tempCardArray.size();
+        Cardy transferCard;
+        for (int i=0; i<iterations; i++) {
+            int randomIndex = random.nextInt(iterations-i);
+            transferCard = tempCardArray.get(randomIndex);
+            cards.add(transferCard);
+            tempCardArray.remove(randomIndex);
+        }
     }
 
 }

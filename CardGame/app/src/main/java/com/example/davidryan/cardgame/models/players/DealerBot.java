@@ -17,8 +17,11 @@ public class DealerBot extends BotPlayer {
 
     @Override
     public int getInitialBetAmount(Gamey game) {
-        // A dealer is not betting on their hand
-        return 0;
+        // A dealer cannot bet independently
+        String playerName = getName();
+        int betAmount = 0;
+        game.outputLine(playerName + " is a dealer and cannot bet independently");
+        return betAmount;
     }
 
     @Override

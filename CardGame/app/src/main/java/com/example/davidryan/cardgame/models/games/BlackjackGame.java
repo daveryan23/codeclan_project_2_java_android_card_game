@@ -69,6 +69,8 @@ public class BlackjackGame extends CardGame {
 
     public void playGame() {
         outputLine("Starting a new game");
+        // Might want to shuffle the cards every game?
+        outputLine(getDeck().sneakAPeekAtTheCards(this));
         checkPlayersAndDealerReset();
         placeInitialBets();
         dealFaceUpTo(players);
@@ -100,13 +102,14 @@ public class BlackjackGame extends CardGame {
             // IF false, E.G. NO BET HAS BEEN PLACED?
 
         }
+        dealer.setupInitialBetAndHand(this);
         outputLine("Initial bets have been placed");
     }
 
     private void dealFaceUpTo(Playery player) {
-        outputLine("Dealing to " + player.getName());
+//        outputLine("Dealing to " + player.getName());
         Cardy card = getDeck().deal();
-        outputLine("Card is " + card.toString());
+//        outputLine("Card is " + card.toString());
         player.dealInitialCard(this, card);
         outputLine("Dealt " + card.toString() + " to " + player.getName());
     }

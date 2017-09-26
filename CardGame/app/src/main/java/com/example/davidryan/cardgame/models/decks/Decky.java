@@ -1,6 +1,7 @@
 package com.example.davidryan.cardgame.models.decks;
 
 import com.example.davidryan.cardgame.models.cards.Cardy;
+import com.example.davidryan.cardgame.models.games.Gamey;
 
 import java.util.List;
 
@@ -11,19 +12,12 @@ import java.util.List;
 public interface Decky {
 
     Cardy deal();
-
     void returnCards(List<Cardy> cards);
-
-
-
-//    int numberOfCards();
-//
-//    void returnToBottom(Cardy card);
-//
-//    void shuffle();
-//
     void setupWithPacks(int numberOfPacks);
     void setupWithMarkedPacks(int numberOfPacks);
     void setupTestSet();
+    int numberOfCards();
+    void shuffle();
+    String sneakAPeekAtTheCards(Gamey game);
 
 }
