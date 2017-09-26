@@ -25,9 +25,7 @@ public abstract class CardGame implements Gamey {
     @Override
     public boolean askUserToPlayAgain() {
         boolean result = false;
-        outputLine("");
-        outputString("Play another time? (y/n) ");
-        String userCommand = inputLine();
+        String userCommand = askQuestion("Play another time? (y/n)");
         if ( (userCommand.equalsIgnoreCase("n"))
                 || (userCommand.equalsIgnoreCase("no"))
                 || (userCommand.equalsIgnoreCase("quit")) ) {
@@ -73,7 +71,7 @@ public abstract class CardGame implements Gamey {
 
     @Override
     public String askQuestion(String message) {
-        outputString(message);
+        outputString(message + " ");
         return inputLine();
     }
 

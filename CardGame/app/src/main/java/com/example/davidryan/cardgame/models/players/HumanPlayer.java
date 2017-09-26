@@ -32,7 +32,7 @@ public class HumanPlayer extends AbstractPlayer {
             // Get user input
             game.outputLine("");
             game.outputLine("Game minimum bet is " + minBet + " pence, going up in steps of " + betInc + ".");
-            String betAmountString = game.askQuestion(playerName + ": how much do you want to bet? (in pence) ");
+            String betAmountString = game.askQuestion(playerName + ": how much do you want to bet? (in pence)");
 
             // Parse user input
             betAmount = Integer.parseInt(betAmountString);

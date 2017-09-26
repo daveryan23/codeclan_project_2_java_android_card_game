@@ -24,7 +24,7 @@ public class Runner {
         // WANT TO SHUFFLE THE PACK HERE!!!
         // OTHERWISE ITS IN THE ORIGINAL ORDER!!!
 
-        Playery dealer = new DealerBot("Big Tom", 100000);
+        Playery dealer = new DealerBot("Big Tom (Dealer)", 100000);
 
         // Bets are in pence, e.g. 0.01GBP
         // Can display this properly in the UI
@@ -44,14 +44,12 @@ public class Runner {
     }
 
     public void run() {
-        game.outputLine("");
         game.outputLine("Welcome to the Blackjack game!");
-        game.playGame();
-        while (!game.askUserToPlayAgain()) {
-            game.playGame();
-        }
-        game.outputLine("");
-        game.outputLine("You have now finished the Blackjack game! Thanks for your custom :)");
+//        game.playGame();
+//        while (!game.askUserToPlayAgain()) {
+//            game.playGame();
+//        }
+        game.outputLine("Goodbye!");
     }
 
 }
