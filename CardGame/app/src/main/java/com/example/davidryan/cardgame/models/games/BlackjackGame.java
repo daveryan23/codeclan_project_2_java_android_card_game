@@ -2,8 +2,8 @@ package com.example.davidryan.cardgame.models.games;
 
 import com.example.davidryan.cardgame.models.decks.Decky;
 import com.example.davidryan.cardgame.models.players.Playery;
-import com.example.davidryan.cardgame.views.inputs.Logging;
-import com.example.davidryan.cardgame.views.outputs.Scanning;
+import com.example.davidryan.cardgame.views.inputs.Loggy;
+import com.example.davidryan.cardgame.views.outputs.Scanny;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class BlackjackGame extends CardGame {
     private Playery dealer;
     private List<Playery> players;
 
-    public BlackjackGame(int minimumBet, int betIncrement, Decky deck, Playery dealer, Logging logger, Scanning scanner) {
+    public BlackjackGame(int minimumBet, int betIncrement, Decky deck, Playery dealer, Loggy logger, Scanny scanner) {
         super(deck, logger, scanner);
         this.minimumBet = minimumBet;
         this.betIncrement = betIncrement;
@@ -29,6 +29,11 @@ public class BlackjackGame extends CardGame {
     @Override
     public int minimumBet() {
         return minimumBet;
+    }
+
+    @Override
+    public int betIncrement() {
+        return betIncrement;
     }
 
     public void add(Playery player) {
@@ -61,7 +66,7 @@ public class BlackjackGame extends CardGame {
 
     private void placeInitialBets() {
         for (Playery player: players) {
-            boolean playerPlaying = player.placeInitialBet(this);
+            boolean playerPlaying = player.setupInitialBetAndHand(this);
 
             // HOW TO STOP PLAYER FROM DOING ANYTHING FURTHER
             // IF false, E.G. NO BET HAS BEEN PLACED?
@@ -81,12 +86,13 @@ public class BlackjackGame extends CardGame {
 
     private void playersPlay() {
         for (Playery player: players) {
-            player.playTurn(this, false);
+            player.playTurn(this);
         }
     }
 
     private int dealerPlays() {
-        return dealer.playTurn(this, true);
+        dealer.playTurn(this);
+        return dealer.getScoreOfFirstHand();
     }
 
     private void resolveAllBets(int score) {

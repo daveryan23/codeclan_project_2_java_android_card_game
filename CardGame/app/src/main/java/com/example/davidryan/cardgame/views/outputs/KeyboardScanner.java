@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Created by davidryan on 15/09/2017.
  */
 
-public class KeyboardScanner implements Scanning {
+public class KeyboardScanner implements Scanny {
     private Scanner scanner;
 
     public KeyboardScanner() {

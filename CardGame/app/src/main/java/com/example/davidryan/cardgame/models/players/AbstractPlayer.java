@@ -3,6 +3,7 @@ package com.example.davidryan.cardgame.models.players;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.hands.CardHand;
+import com.example.davidryan.cardgame.models.hands.HandDecisions;
 import com.example.davidryan.cardgame.models.hands.Handy;
 import com.example.davidryan.cardgame.models.hands.SplitHand;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 public abstract class AbstractPlayer implements Playery {
+    protected boolean isDealer;
     private String name;
     private int money;
     private int moneyAtRisk;
@@ -22,10 +24,22 @@ public abstract class AbstractPlayer implements Playery {
     public AbstractPlayer(String name, int money) {
         this.name = name;
         this.money = money;
+        isDealer = false;
         moneyAtRisk = 0;
         hands = new ArrayList<>();
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean isDealer() {
+        return isDealer;
+    }
+
+    @Override
     public void reset(Gamey game) {
         for (Handy hand: hands) {
             money += hand.returnMoney();
@@ -35,18 +49,24 @@ public abstract class AbstractPlayer implements Playery {
         moneyAtRisk = 0;
     }
 
-    private int moneyAvailable() {
+    @Override
+    public int moneyAvailable() {
         return money - moneyAtRisk;
     }
 
-    public boolean placeInitialBet(Gamey game) {
-        // If player doesn't have the minimum bet then false
-        // This will remove player from table
-        // Otherwise true
-        int minBet = game.minimumBet();
-        // Default behaviour is to do minimum bet
-        // Can override this in human player classes
-        int theBet = minBet;
+    @Override
+    public void incrementMoney(int money) {
+        this.money += money;
+    }
+
+    @Override
+    public void riskMoney(int moneyAtRisk) {
+        this.moneyAtRisk += moneyAtRisk;
+    }
+
+    @Override
+    public boolean setupInitialBetAndHand(Gamey game) {
+        int theBet = getInitialBetAmount(game);
         if (moneyAvailable()<theBet) {
             return false;
         }
@@ -57,59 +77,74 @@ public abstract class AbstractPlayer implements Playery {
     }
 
     @Override
+    public int getInitialBetAmount(Gamey game) {
+        // Override this in human, bot and dealer subclasses
+        return game.minimumBet();
+    }
+
+    @Override
     public void dealInitialCard(Gamey game, Cardy card) {
         // This will go to the first (and presumably only) hand
         hands.get(0).receiveFaceUp(card);
     }
 
-    public int playTurn(Gamey game, boolean isDealer) {
-
-        // Rules are slightly different on a dealer
-        // Can factor out to a subclass of Bot, perhaps?
-
-        int handIndex = 0;
-        while (handIndex < hands.size()) {
-            Handy hand = hands.get(handIndex);
-            boolean handSplittable = hand.playHand();
-            if (handSplittable) {
-                if (!isDealer) {
-                    // Split the hand
-                    int splitBet = hand.getBet();
-                    if (splitBet<=moneyAvailable()) {
-                        splitBet = hand.returnMoney();
-                        moneyAtRisk += splitBet;
-                        Handy newHand1 = new SplitHand(splitBet);
-                        Handy newHand2 = new SplitHand(splitBet);
-                        newHand1.receiveFaceUp(hand.);
-
-
-                    }
-                }
-            }
-
-            handIndex++;
+    @Override
+    public int getScoreOfFirstHand() {
+        int score = 0;
+        if (hands.size() > 0) {
+            score = hands.get(0).finalScore();
         }
-        boolean turnFinished = false;
-
-
-        // NEED TO WORK OUT SCORE ON TURN - MAINLY FOR DEALER SIDE
-
-        return 0;
+        return score;
     }
 
+    @Override
+    public void playTurn(Gamey game) {
+        int handIndex = 0;
+        // Use a While loop, since hands could dynamically increase in size
+        // e.g. if hands are added due to splits
+        while (handIndex < hands.size()) {
+            Handy hand = hands.get(handIndex);
+            boolean splitRequested = hand.playHand(game, this);
+            if (splitRequested) {
+                // Assume split is checked on the Hand!
+                splitHand(game, hand);
+            }
+            handIndex++;
+        }
+    }
+
+    @Override
+    public HandDecisions makeDecision(Handy hand) {
+        // If no subclass has overridden this, do nothing!
+        return HandDecisions.STAND;
+    }
+
+    private void splitHand(Gamey game, Handy hand) {
+        // Get all bets and cards back from the Hand
+        List<Cardy> cards = hand.returnCards();
+        int bet = hand.returnMoney();
+        moneyAtRisk -= bet;
+        // For each returned card, set up a new Hand
+        // This should have been checked earlier when requesting split.
+        for (Cardy splitCard: cards) {
+            Handy newHand = new SplitHand(bet);
+            moneyAtRisk += bet;
+            newHand.receiveFaceUp(splitCard);
+            Cardy dealtCard = game.dealCardFromDeck();
+            newHand.receiveFaceUp(dealtCard);
+            hands.add(hand);
+        }
+    }
+
+    @Override
     public void resolveBets(Gamey game, int score) {
         for (Handy hand: hands) {
             int moneyWonByPlayer = hand.resolveBet(this, score);
-            money += moneyWonByPlayer;
+            // This amount can be positive or negative!
+            incrementMoney(moneyWonByPlayer);
             game.reduceDealerMoney(moneyWonByPlayer);
         }
         moneyAtRisk = 0;
     }
-
-    public void incrementMoney(int money) {
-        this.money += money;
-    }
-
-
 
 }

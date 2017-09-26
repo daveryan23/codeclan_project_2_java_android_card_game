@@ -1,6 +1,7 @@
 package com.example.davidryan.cardgame.models.hands;
 
 import com.example.davidryan.cardgame.models.cards.Cardy;
+import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.players.Playery;
 
 import java.util.List;
@@ -12,17 +13,23 @@ import java.util.List;
 public interface Handy {
 
     int getBet();
+    int countCards();
     int returnMoney();
     List<Cardy> returnCards();
 
-    void receive(Cardy card, boolean visible);
     void receiveFaceUp(Cardy card);
     void receiveFaceDown(Cardy card);
 
-    Cardy returnCard();
+    boolean playHand(Gamey game, Playery player);
 
-    boolean playHand();
+    int countChoices(Playery player);
+    boolean canHit(Playery player);
+    boolean canStand(Playery player);
+    boolean canDouble(Playery player);
+    boolean canSplit(Playery player);
 
+    int lowerScore();
+    int higherScore();
     int finalScore();
 
     int resolveBet(Playery player, int score);

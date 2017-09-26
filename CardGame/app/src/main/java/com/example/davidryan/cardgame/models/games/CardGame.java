@@ -2,8 +2,8 @@ package com.example.davidryan.cardgame.models.games;
 
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.decks.Decky;
-import com.example.davidryan.cardgame.views.inputs.Logging;
-import com.example.davidryan.cardgame.views.outputs.Scanning;
+import com.example.davidryan.cardgame.views.inputs.Loggy;
+import com.example.davidryan.cardgame.views.outputs.Scanny;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import java.util.List;
 
 public abstract class CardGame implements Gamey {
     private Decky deck;
-    private Logging logger;
-    private Scanning scanner;
+    private Loggy logger;
+    private Scanny scanner;
 
-    public CardGame(Decky deck, Logging logger, Scanning scanner){
+    public CardGame(Decky deck, Loggy logger, Scanny scanner){
         this.deck = deck;
         this.logger = logger;
         this.scanner = scanner;
@@ -37,13 +37,13 @@ public abstract class CardGame implements Gamey {
     }
 
     @Override
-    public int minimumBet() {
-        return 0;
+    public Decky getDeck() {
+        return deck;
     }
 
     @Override
-    public Decky getDeck() {
-        return deck;
+    public Cardy dealCardFromDeck() {
+        return deck.deal();
     }
 
     @Override
@@ -59,6 +59,12 @@ public abstract class CardGame implements Gamey {
     @Override
     public String inputLine() {
         return scanner.inputLine();
+    }
+
+    @Override
+    public String askQuestion(String message) {
+        outputString(message);
+        return inputLine();
     }
 
     @Override

@@ -15,10 +15,13 @@ public interface Gamey {
     void returnCards(List<Cardy> cards);
 
     int minimumBet();
+    int betIncrement();
     void reduceDealerMoney(int moneyWonByPlayer);
+    Cardy dealCardFromDeck();
 
     void outputString(String message);
     void outputLine(String message);
     String inputLine();
+    String askQuestion(String message);
 
 }

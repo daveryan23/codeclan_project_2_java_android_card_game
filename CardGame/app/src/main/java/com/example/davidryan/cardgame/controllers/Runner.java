@@ -1,10 +1,10 @@
 package com.example.davidryan.cardgame.controllers;
 
-import com.example.davidryan.cardgame.models.cards.MarkedCard;
 import com.example.davidryan.cardgame.models.decks.Decky;
 import com.example.davidryan.cardgame.models.decks.RandomDeck;
 import com.example.davidryan.cardgame.models.games.BlackjackGame;
 import com.example.davidryan.cardgame.models.players.BotPlayer;
+import com.example.davidryan.cardgame.models.players.DealerBot;
 import com.example.davidryan.cardgame.models.players.HumanPlayer;
 import com.example.davidryan.cardgame.models.players.Playery;
 import com.example.davidryan.cardgame.views.inputs.ConsoleLogger;
@@ -24,9 +24,11 @@ public class Runner {
         // WANT TO SHUFFLE THE PACK HERE!!!
         // OTHERWISE ITS IN THE ORIGINAL ORDER!!!
 
-        Playery dealer = new BotPlayer("Big Tom", 100000);
+        Playery dealer = new DealerBot("Big Tom", 100000);
 
-        game = new BlackjackGame(2, 2, deck, dealer, new ConsoleLogger(), new KeyboardScanner());
+        // Bets are in pence, e.g. 0.01GBP
+        // Can display this properly in the UI
+        game = new BlackjackGame(200, 100, deck, dealer, new ConsoleLogger(), new KeyboardScanner());
 
         Playery bob = new BotPlayer("Bob", 350);
         Playery dave = new HumanPlayer("Dave", 100);
