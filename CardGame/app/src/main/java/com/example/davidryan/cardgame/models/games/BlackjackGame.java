@@ -16,13 +16,15 @@ import java.util.List;
 
 public class BlackjackGame extends CardGame {
     private int minimumBet;
+    private int maximumBet;
     private int betIncrement;
     private Playery dealer;
     private List<Playery> players;
 
-    public BlackjackGame(int minimumBet, int betIncrement, Decky deck, Playery dealer, Loggy logger, Scanny scanner) {
+    public BlackjackGame(int minimumBet, int maximumBet, int betIncrement, Decky deck, Playery dealer, Loggy logger, Scanny scanner) {
         super(deck, logger, scanner);
         this.minimumBet = minimumBet;
+        this.maximumBet = maximumBet;
         this.betIncrement = betIncrement;
         this.dealer = dealer;
         players = new ArrayList<>();
@@ -33,6 +35,11 @@ public class BlackjackGame extends CardGame {
     @Override
     public int minimumBet() {
         return minimumBet;
+    }
+
+    @Override
+    public int maximumBet() {
+        return maximumBet;
     }
 
     @Override
@@ -80,7 +87,9 @@ public class BlackjackGame extends CardGame {
         dealFaceUpTo(dealer);
         int score = dealerPlays();
         resolveAllBets(score);
+        outputLine(getDeck().sneakAPeekAtTheCards(this));
         returnAllPlayerAndDealerCards();
+        outputLine(getDeck().sneakAPeekAtTheCards(this));
         outputLine("Game over!");
     }
 

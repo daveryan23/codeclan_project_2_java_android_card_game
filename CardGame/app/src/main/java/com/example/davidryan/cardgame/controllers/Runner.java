@@ -21,8 +21,8 @@ public class Runner {
 
     public Runner() {
         Decky deck = new RandomDeck();
-        deck.setupWithMarkedPacks(4);
-//        deck.setupWithPacks(1);
+//        deck.setupWithMarkedPacks(4);
+        deck.setupWithPacks(1);
         deck.shuffle();
 
         // Money is in pence.
@@ -33,7 +33,7 @@ public class Runner {
 
         // Bets are in pence, e.g. 0.01GBP
         // Can display this properly in the UI
-        game = new BlackjackGame(200, 100, deck, dealer, new ConsoleLogger(), new KeyboardScanner());
+        game = new BlackjackGame(200, 10000, 50, deck, dealer, new ConsoleLogger(), new KeyboardScanner());
 
         Playery bob = new BotPlayer("Rich Bobbot", 45000);
         Playery dave = new HumanPlayer("Davehuman", 10000);

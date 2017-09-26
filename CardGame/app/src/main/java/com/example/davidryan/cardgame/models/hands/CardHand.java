@@ -56,6 +56,13 @@ public class CardHand implements Handy {
             theDescription += textToAdd + ", ";
         }
         theDescription = theDescription.substring(0, theDescription.length() - 2);  // Lose the trailing ', '
+        if (1<countCards()) {
+            if (lowerScore()==higherScore()) {
+                theDescription += " (" + lowerScore() + ")";
+            } else {
+                theDescription += " (" + lowerScore() + "/" + higherScore() + ")";
+            }
+        }
         return theDescription;
     }
 
@@ -227,11 +234,14 @@ public class CardHand implements Handy {
 
     @Override
     public boolean playHand(Gamey game, Playery player) {
+        game.outputLine(getLabel() + " hand starts");
         HandDecisions playerDecision;
         boolean splitRequested = false;
         boolean stillLooping = true;
         while (stillLooping) {
-            if (countChoices(player) > 1) {
+            int choices = countChoices(player);
+            game.outputLine(getLabel() + " has " + choices + " choices");
+            if (choices<2) {
                 // Player can only Stand. Exit loop.
                 stillLooping = false;
             } else {
@@ -262,6 +272,7 @@ public class CardHand implements Handy {
                 }
             }
         }
+        game.outputLine(getLabel() + " hand ends");
         return splitRequested;
     }
 

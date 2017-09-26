@@ -14,6 +14,7 @@ public interface Gamey {
 
     // Getters
     int minimumBet();
+    int maximumBet();
     int betIncrement();
 
     // Deck interaction
@@ -30,6 +31,8 @@ public interface Gamey {
     void reduceDealerMoney(int moneyWonByPlayer);
 
     // Input/Output
+    String formatBet(int moneyUnits);
+    int convertBackToMoneyUnits(String inputAmount);
     void outputString(String message);
     void outputLine(String message);
     String inputLine();

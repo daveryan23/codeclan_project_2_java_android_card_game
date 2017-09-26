@@ -85,18 +85,23 @@ public abstract class AbstractPlayer implements Playery {
 
     @Override
     public void playTurn(Gamey game) {
+        game.outputLine(getName() + " takes a turn");
         int handIndex = 0;
         // Use a While loop, since hands could dynamically increase in size
         // e.g. if hands are added due to splits
         while (handIndex < hands.size()) {
+            game.outputLine(getName() + " starts hand " + (handIndex+1));
             Handy hand = hands.get(handIndex);
             boolean splitRequested = hand.playHand(game, this);
             if (splitRequested) {
                 // Assume split is checked on the Hand!
                 splitHand(game, hand, handIndex);
+                game.outputLine(getName() + " has split hand " + (handIndex+1));
             }
+            game.outputLine(getName() + " ends hand " + (handIndex+1));
             handIndex++;
         }
+        game.outputLine(getName() + " has taken a turn");
     }
 
     private void splitHand(Gamey game, Handy hand, int handIndex) {

@@ -22,6 +22,7 @@ public class HumanPlayer extends AbstractPlayer {
 
         String playerName = getName();
         int minBet = game.minimumBet();
+        int maxBet = game.maximumBet();
         int betInc = game.betIncrement();
         int betAmount = 0;
 
@@ -29,21 +30,26 @@ public class HumanPlayer extends AbstractPlayer {
             game.outputLine(playerName + " has not got enough money for the minimum bet");
         } else {
             // Get user input
-            game.outputLine("Game minimum bet is " + minBet + " pence, going up in steps of " + betInc);
-            String betAmountString = game.askQuestion(playerName + ": how much do you want to bet, in pence?");
+            game.outputLine("Game minimum bet is " + game.formatBet(minBet) + ", going up in steps of " + game.formatBet(betInc));
+            String betAmountString = game.askQuestion(playerName + ": how much do you want to bet?");
 
             // Parse user input
-            betAmount = Integer.parseInt(betAmountString);
+            betAmount = game.convertBackToMoneyUnits(betAmountString);
             if (betAmount<minBet) {
                 betAmount = minBet;
+            }
+            if (betAmount>maxBet) {
+                betAmount = maxBet;
+            }
+            if (betAmount>moneyAvailable()) {
+                betAmount = moneyAvailable();
             }
             int theRes = betAmount % betInc;
             betAmount -= theRes;
             // Should now have a bet amount compatible with the minimum bet and bet increment
 
-            game.outputLine(playerName + " has bet " + betAmount + " pence on this hand");
+            game.outputLine(playerName + " has bet " + game.formatBet(betAmount) + " on this hand");
         }
-
         return betAmount;
     }
 
@@ -56,7 +62,7 @@ public class HumanPlayer extends AbstractPlayer {
         if (hand.canDouble(this)) {playerChoices.add("Double (D)");}
         if (hand.canSplit(this)) {playerChoices.add("Split (Y)");}
 
-        String questionText = "Do you want to: ";
+        String questionText = " - ";
         for (String choice: playerChoices) {
             questionText += choice + ", ";
         }
@@ -66,11 +72,12 @@ public class HumanPlayer extends AbstractPlayer {
         boolean needChoice = true;
         while (needChoice) {
             game.outputString("Dealer has " + game.describeDealerHand());
-            game.outputString( ", " + hand.toString());
+            game.outputString( " and " + hand.toString());
             String decision = game.askQuestion(questionText);
 
             if (decision.length()>0) {
-                String leftChar = decision.substring(0, 0).toLowerCase();
+                String leftChar = decision.substring(0, 1).toLowerCase();
+                game.outputLine("Option selected is '" + leftChar + "'");
                 if ( hand.canHit(this) && leftChar.equalsIgnoreCase("h") ) {
                     result = HandDecisions.HIT;
                     needChoice = false;
