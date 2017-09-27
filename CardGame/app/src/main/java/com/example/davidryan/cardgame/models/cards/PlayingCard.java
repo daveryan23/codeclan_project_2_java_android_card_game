@@ -16,22 +16,19 @@ public class PlayingCard implements Cardy {
         this.suit = suit;
     }
 
+    @Override
     public Suits getSuit() {
         return suit;
     }
 
+    @Override
     public Values getValue() {
         return value;
     }
 
     @Override
-    public String toString() {
-        return value.SYMBOL() + suit.SYMBOL();
-    }
-
-    @Override
-    public String toVerboseString() {
-        return value + " of " + suit;
+    public boolean isAce() {
+        return value==Values.ACE;
     }
 
     @Override
@@ -45,13 +42,23 @@ public class PlayingCard implements Cardy {
     }
 
     @Override
-    public boolean isAce() {
-        return value==Values.ACE;
+    public String toString() {
+        return value.SYMBOL() + suit.SYMBOL();
     }
 
-    public static void main(String[] args) {
-        // Test the different suits
-        System.out.println("The suits are: Spade \u2660 Heart \u2665 Diamond \u2666 Club \u2663 .");
+    @Override
+    public String toVerboseString() {
+        return value + " of " + suit;
+    }
+
+    @Override
+    public String describeFaceUp() {
+        return toString();
+    }
+
+    @Override
+    public String describeFaceDown() {
+        return "??";
     }
 
 }

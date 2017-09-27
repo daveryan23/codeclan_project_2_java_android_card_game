@@ -80,7 +80,8 @@ public class RandomDeck implements Decky {
         if (numCards>0) {
             text = "Deck has " + numCards + " cards in it. Naughty! You are sneaking a look at the cards! :) ";
             for (Cardy card: cards) {
-                text += card.toString() + " ";
+//                text += card.describeFaceDown() + " ";
+                text += card.describeFaceUp() + " ";
             }
             text = text.substring(0, text.length()-1);
         } else {

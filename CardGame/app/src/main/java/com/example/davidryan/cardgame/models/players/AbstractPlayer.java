@@ -85,23 +85,25 @@ public abstract class AbstractPlayer implements Playery {
 
     @Override
     public void playTurn(Gamey game) {
-        game.outputLine(getName() + " takes a turn");
+        game.outputLine("");
+        game.outputLine(getName() + " is about to start a turn");
         int handIndex = 0;
         // Use a While loop, since hands could dynamically increase in size
         // e.g. if hands are added due to splits
         while (handIndex < hands.size()) {
-            game.outputLine(getName() + " is about to commence hand " + (handIndex+1));
+            game.outputLine(getName() + " is about to start hand " + (handIndex+1));
             Handy hand = hands.get(handIndex);
             boolean splitRequested = hand.playHand(game, this);
             if (splitRequested) {
                 // Assume split is checked on the Hand!
                 splitHand(game, hand);
-                game.outputLine(getName() + " has split hand " + (handIndex+1));
+                game.outputLine(getName() + " has finished hand " + (handIndex+1) + " by splitting it");
+            } else {
+                game.outputLine(getName() + " has finished hand " + (handIndex+1));
             }
-            game.outputLine(getName() + " has exited hand " + (handIndex+1));
             handIndex++;
         }
-        game.outputLine(getName() + " has taken a turn");
+        game.outputLine(getName() + " has finished a turn");
     }
 
     private void splitHand(Gamey game, Handy hand) {
@@ -109,7 +111,7 @@ public abstract class AbstractPlayer implements Playery {
         // Get all bets and cards back from the Hand
         List<Cardy> cards = hand.returnCards();
         int bet = hand.returnMoney();
-        game.outputLine("There are " + cards.size() + " cards to split and " + bet + " money to place on each");
+        game.outputLine("There are " + cards.size() + " cards to split and " + game.formatMoney(bet) + " to place on each");
         moneyAtRisk -= bet;
         // For each returned card, set up a new Hand
         // This should have been checked earlier when requesting split.
@@ -121,8 +123,10 @@ public abstract class AbstractPlayer implements Playery {
             Cardy dealtCard = game.dealCardFromDeck();
             newHand.receiveFaceUp(dealtCard);
             hands.add(newHand);
-            game.outputLine("New hand: label '" + newHand.getLabel() + "', bet '" + newHand.getBet() + "'.");
-            game.outputLine("New hand cards: " + newHand.countCards() + " cards with top card score " + newHand.topCardScore() + ".");
+            game.outputLine("New hand:" + newHand.getLabel() + ", " +
+                    "bet " + game.formatMoney(newHand.getBet()) + ", " +
+                    "new hand is " + newHand.describeCards()
+            );
 //            game.outputLine("Finished creating a new hand: " + hand.toString());
         }
         game.outputLine("Finished splitting a hand");
@@ -130,13 +134,21 @@ public abstract class AbstractPlayer implements Playery {
 
     @Override
     public void resolveBets(Gamey game, int score) {
+        game.outputLine("");
+        game.outputLine(getName() + " starts on " + game.formatMoney(money));
         for (Handy hand: hands) {
-            int moneyWonByPlayer = hand.resolveBet(this, score);
-            // This amount can be positive or negative!
-            incrementMoney(moneyWonByPlayer);
-            game.reduceDealerMoney(moneyWonByPlayer);
+            if (0==hand.getBet()) {
+                // Ignore empty hands, hands with no bet or cards.
+                // This occurs after a split
+            } else {
+                int moneyWonByPlayer = hand.resolveBet(game, this, score);
+                // This amount can be positive or negative!
+                incrementMoney(moneyWonByPlayer);
+                game.reduceDealerMoney(moneyWonByPlayer);
+            }
         }
         moneyAtRisk = 0;
+        game.outputLine(getName() + " finishes on " + game.formatMoney(money));
     }
 
     // DEALER METHODS

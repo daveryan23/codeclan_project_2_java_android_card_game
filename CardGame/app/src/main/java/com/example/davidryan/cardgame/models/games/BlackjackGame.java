@@ -75,7 +75,8 @@ public class BlackjackGame extends CardGame {
     }
 
     public void playGame() {
-        outputLine("Starting a new game");
+        outputLine("");
+        outputLine("Starting a new round of blackjack");
         // Might want to shuffle the cards every game?
         outputLine(getDeck().sneakAPeekAtTheCards(this));
         checkPlayersAndDealerReset();
@@ -90,7 +91,7 @@ public class BlackjackGame extends CardGame {
         outputLine(getDeck().sneakAPeekAtTheCards(this));
         returnAllPlayerAndDealerCards();
         outputLine(getDeck().sneakAPeekAtTheCards(this));
-        outputLine("Game over!");
+        outputLine("This round of blackjack is complete!");
     }
 
     private void checkPlayersAndDealerReset() {
@@ -152,11 +153,14 @@ public class BlackjackGame extends CardGame {
     }
 
     private void resolveAllBets(int score) {
-        outputLine("About to resolve all the player bets");
+        outputLine("");
+        outputLine("About to resolve all the player bets - dealer has " + formatMoney(dealer.moneyAvailable()));
         for (Playery player: players) {
             player.resolveBets(this, score);
         }
-        outputLine("Player bets have been resolved");
+        outputLine("");
+        outputLine("Player bets have been resolved - dealer has " + formatMoney(dealer.moneyAvailable()));
+        outputLine("");
     }
 
     private void returnAllPlayerAndDealerCards() {

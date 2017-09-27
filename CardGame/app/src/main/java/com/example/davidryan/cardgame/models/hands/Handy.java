@@ -16,6 +16,7 @@ public interface Handy {
     String getLabel();
     int getBet();
     String toString();
+    String describeCards();
 
     int countCards();
     int returnMoney();
@@ -25,18 +26,18 @@ public interface Handy {
     void receiveFaceDown(Cardy card);
 
     boolean playHand(Gamey game, Playery player);
+    int resolveBet(Gamey game, Playery player, int score);
 
     int countChoices(Playery player);
     boolean canHit(Playery player);
     boolean canStand(Playery player);
     boolean canDouble(Playery player);
-    boolean canSplit(Playery player);
 
+    boolean canSplit(Playery player);
     int lowerScore();
     int higherScore();
-    int finalScore();
 
-    int resolveBet(Playery player, int score);
+    int finalScore();
 
     int topCardScore();     // Ace = 11. K, Q, J = 10. Others are face value. Missing = 0.
 

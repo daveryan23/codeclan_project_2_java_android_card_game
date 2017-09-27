@@ -21,4 +21,12 @@ public class SplitHand extends CardHand {
             return theScore;
         }
     }
+
+    private boolean handIsBlackJack() {
+        // Split hands cannot be a BlackJack
+        // e.g. Ace and Ten are counted as 21, not as BlackJack
+        // and pay at 1:1, not 3:2
+        return false;
+    }
+
 }

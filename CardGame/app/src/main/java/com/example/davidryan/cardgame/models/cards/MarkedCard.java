@@ -8,35 +8,45 @@ import com.example.davidryan.cardgame.models.cardattributes.Values;
  */
 
 public class MarkedCard extends PlayingCard {
-    private String text;
+    private String marking;
 
     public MarkedCard(Values value, Suits suit, String text) {
         super(value, suit);
-        this.text = text;
+        this.marking = text;
     }
 
     public MarkedCard(Values value, Suits suit) {
         this(value, suit, "");
     }
 
-    public String getText() {
-        return text;
+    public String getMarking() {
+        return marking;
     }
 
     @Override
     public String toString() {
-        // returns text similar to '5Ca'
-        return super.toString() + getText();
+        // returns marking similar to '5Ca'
+        return super.toString() + getMarking();
     }
 
     @Override
     public String toVerboseString() {
-        String extraText = getText();
+        String extraText = getMarking();
         if (extraText.length() > 0) {
             extraText = " (" + extraText + ")";
         }
-        // returns text similar to 'FIVE of CLUBS (a)'
+        // returns marking similar to 'FIVE of CLUBS (a)'
         return super.toString() + extraText;
+    }
+
+    @Override
+    public String describeFaceUp() {
+        return toString();
+    }
+
+    @Override
+    public String describeFaceDown() {
+        return "??" + getMarking();
     }
 
 }

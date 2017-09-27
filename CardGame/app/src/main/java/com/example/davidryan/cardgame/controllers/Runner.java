@@ -35,12 +35,36 @@ public class Runner {
         // Can display this properly in the UI
         game = new BlackjackGame(200, 10000, 50, deck, dealer, new ConsoleLogger(), new KeyboardScanner());
 
-        Playery bob = new BotPlayer("Rich Bobbot", 45000);
-        Playery dave = new HumanPlayer("Davehuman", 10000);
-        Playery phil = new BotPlayer("Poor Philbot", 2000);
-        game.add(bob);
-        game.add(dave);
-        game.add(phil);
+//        Playery bob = new BotPlayer("Rich Bobbot", 45000);
+//        Playery dave = new HumanPlayer("Davehuman", 10000);
+//        Playery phil = new BotPlayer("Poor Philbot", 2000);
+        Playery bot1 = new BotPlayer("Bot1", 50000);
+        Playery bot2 = new BotPlayer("Bot2", 50000);
+        Playery bot3 = new BotPlayer("Bot3", 50000);
+        Playery bot4 = new BotPlayer("Bot4", 50000);
+        Playery bot5 = new BotPlayer("Bot5", 50000);
+        Playery bot6 = new BotPlayer("Bot6", 50000);
+//        Playery bot7 = new BotPlayer("Bot7", 50000);
+//        Playery bot8 = new BotPlayer("Bot8", 50000);
+//        Playery bot9 = new BotPlayer("Bot9", 50000);
+//        Playery botA = new BotPlayer("BotA", 50000);
+//        Playery botB = new BotPlayer("BotB", 50000);
+//        Playery botC = new BotPlayer("BotC", 50000);
+//        game.add(bob);
+//        game.add(dave);
+//        game.add(phil);
+        game.add(bot1);
+        game.add(bot2);
+        game.add(bot3);
+        game.add(bot4);
+        game.add(bot5);
+        game.add(bot6);
+//        game.add(bot7);
+//        game.add(bot8);
+//        game.add(bot9);
+//        game.add(botA);
+//        game.add(botB);
+//        game.add(botC);
     }
 
     public static void main(String[] args) {
@@ -49,13 +73,16 @@ public class Runner {
     }
 
     public void run() {
-        game.outputLine("Welcome to the Blackjack game!");
+        game.outputLine("");
+        game.outputLine("Welcome to Dave Ryan's casino! Please have a go on our superb Blackjack game. Break a leg!");
         game.playGame();
         while (!game.askUserToPlayAgain()) {
             // Might want to shuffle the cards every N games?
             game.playGame();
         }
-        game.outputLine("Goodbye!");
+        game.outputLine("");
+        game.outputLine("*** *** *** GAME OVER ! *** *** ***");
+        game.outputLine("");
     }
 
 }

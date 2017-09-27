@@ -36,10 +36,10 @@ public class HumanPlayer extends AbstractPlayer {
         } else {
             // Get user input
             String questionText = playerName + " has " + fundsText + ". " +
-                    "Min bet " + minBetText + ", " +
-                    "goes up by " + betIncText + " " +
-                    "to max " + maxBetText + ". " +
-                    "How much to bet?";
+                    "Bet between " + minBetText + " " +
+                    "and " + maxBetText + " " +
+                    "(multiple of " + betIncText + ")" +
+                    "?";
             String betMoney = game.askQuestion(questionText);
 
             // Parse user input
@@ -99,6 +99,8 @@ public class HumanPlayer extends AbstractPlayer {
                 } else if ( leftChar.equalsIgnoreCase("s") ) {
                     result = HandDecisions.STAND;
                     needChoice = false;
+                } else {
+                    game.outputLine("Option not recognised, please retry");
                 }
             }
         }

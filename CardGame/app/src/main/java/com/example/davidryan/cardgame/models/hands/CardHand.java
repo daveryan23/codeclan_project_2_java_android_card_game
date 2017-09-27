@@ -43,25 +43,32 @@ public class CardHand implements Handy {
 
     @Override
     public String toString() {
-        return label + " has " + describeCards();
+        return label + " has "  + describeCards();
     }
 
-    private String describeCards() {
+    @Override
+    public String describeCards() {
         String theDescription = "";
         int numberOfCards = countCards();
         for (int i = 0; i < numberOfCards; i++) {
             Cardy card = cards.get(i);
             boolean visible = visibilities.get(i);
-            String textToAdd = (visible) ? card.toString() : "??";
+            String textToAdd = (visible) ? card.describeFaceUp() : card.describeFaceDown();
             theDescription += textToAdd + ", ";
         }
-        theDescription = theDescription.substring(0, theDescription.length() - 2);  // Lose the trailing ', '
-        if (1<countCards() || higherScore()>9) {
-            if (lowerScore()==higherScore()) {
-                theDescription += " (" + lowerScore() + ")";
-            } else {
-                theDescription += " (" + lowerScore() + "/" + higherScore() + ")";
-            }
+        if (0<numberOfCards) {
+            theDescription = theDescription.substring(0, theDescription.length() - 2);  // Lose the trailing ', '
+        }
+        if (handIsBust()) {
+            theDescription += " (" + lowerScore() + ", BUST!)";
+        } else if (handIsBlackJack()) {
+            theDescription += " ***** BLACKJACK! PARTY TIME!! *****";
+        } else if (countCards()==1) {
+            // no extra description needed
+        } else if (lowerScore()==higherScore()) {
+            theDescription += " (" + lowerScore() + ")";
+        } else {
+            theDescription += " (" + lowerScore() + "/" + higherScore() + ")";
         }
         return theDescription;
     }
@@ -123,8 +130,8 @@ public class CardHand implements Handy {
     @Override
     public int finalScore() {
         // This is the higherScore except for
-        // 1) Bust
-        // 2) Blackjack
+        // 1) Bust (score 0)
+        // 2) Blackjack (score 22 so it beats a hand of 21)
         if (handIsBust()) {
             return 0;
         }
@@ -191,6 +198,9 @@ public class CardHand implements Handy {
             // Can hit up to hard 20 (although you wouldn't!)
             return true;
         }
+        // (Method could be rewritten with 1 clause - no hitting on soft 21,
+        // however some nutters might want to hit on a 5 6 J combo...
+        // so for now let them.)
         return false;
     }
 
@@ -198,6 +208,10 @@ public class CardHand implements Handy {
     public boolean canDouble(Playery player) {
         // Dealers don't double
         if (player.isDealer()) {
+            return false;
+        }
+        // Can't double on any soft 21, including blackjack!
+        if (higherScore()==21) {
             return false;
         }
         // Player needs money available to double
@@ -234,72 +248,104 @@ public class CardHand implements Handy {
 
     @Override
     public boolean playHand(Gamey game, Playery player) {
-        game.outputLine(getLabel() + " hand starts");
+        game.outputLine(toString() + " with bet " + game.formatMoney(getBet()) + " and dealer score " + game.dealerTopCardScore() + " - hand starts");
+        String playerName = player.getName();
         HandDecisions playerDecision;
         boolean splitRequested = false;
         boolean stillLooping = true;
         while (stillLooping) {
             int choices = countChoices(player);
-            game.outputLine(getLabel() + " has " + choices + " choices");
+//            game.outputLine(getLabel() + " has " + choices + " choices");
             if (choices<2) {
                 // Player can only Stand. Exit loop.
                 stillLooping = false;
+                game.outputLine(playerName + " ends with " + describeCards());
             } else {
                 playerDecision = player.makeDecision(game, this);
+                Cardy card;
                 switch (playerDecision) {
                     case STAND:
                         stillLooping = false;
+                        game.outputLine(playerName + " STANDS on " + describeCards());
                         break;
                     case SPLIT:
                         stillLooping = false;
                         splitRequested = true;
+                        game.outputLine(playerName + " SPLITS " + describeCards() + " into new hands");
                         break;
                     case DOUBLE:
                         // Have to double bet, take exactly one more card, and then stop
                         int betIncrease = bet;
                         bet += betIncrease;
                         player.riskMoney(betIncrease);
-                        receiveFaceUp(game.dealCardFromDeck());
+                        card = game.dealCardFromDeck();
+                        receiveFaceUp(card);
                         stillLooping = false;
+                        game.outputLine(playerName + " DOUBLES bet, receives " + card.describeFaceUp() + " to finish on " + describeCards());
                         break;
                     case HIT:
                         // Deal 1 more card, and continue loop
-                        receiveFaceUp(game.dealCardFromDeck());
+                        card = game.dealCardFromDeck();
+                        receiveFaceUp(card);
+                        game.outputLine(playerName + " HITS, receives " + card.describeFaceUp() + " to give " + describeCards());
                         break;
                     default:
                         // We should not be here!
+                        game.outputLine("ERROR! DEBUG ME PLEASE");
                         break;
                 }
             }
         }
-        game.outputLine(getLabel() + " hand ends");
+        game.outputLine(toString() + " with bet " + game.formatMoney(getBet()) + " and dealer score " + game.dealerTopCardScore() + " - hand ends");
         return splitRequested;
     }
 
     @Override
-    public int resolveBet(Playery player, int dealerScore) {
+    public int resolveBet(Gamey game, Playery player, int dealerScore) {
+        if (dealerScore==22) {
+            game.outputString("Dealer has BLACKJACK, ");
+        } else if (dealerScore==0) {
+            game.outputString("Dealer is BUST, ");
+        } else {
+            game.outputString("Dealer has " + dealerScore + ", ");
+        }
+        String betText = game.formatMoney(bet);
+        game.outputString(toString() + ", bet " + betText + ", ");
         int handScore = finalScore();
         int moneyWonByPlayer;
         if (handScore == 0) {
             // Player bust (irrespective of whether dealer bust)
             moneyWonByPlayer = -bet;
+            game.outputLine("loses " + betText + " by going bust");
         } else if (handScore == dealerScore) {
             // Equal score > 0, its a Push (including player and dealer blackjacks)
             moneyWonByPlayer = 0;
+            game.outputLine("their bet of " + betText + " is returned");
         } else if (handScore < dealerScore) {
             // Dealer wins, including dealer blackjack
             moneyWonByPlayer = -bet;
+            game.outputLine("loses " + betText + " to the dealer");
         } else if (handScore == 22) {
             // Player wins with blackjack, paying 3:2
             moneyWonByPlayer = (int) (1.5 * bet);
+            game.outputLine("wins an extra " + game.formatMoney(moneyWonByPlayer) + " from the dealer");
         } else if (handScore > dealerScore) {
             // Player wins with better non-blackjack hand than dealer, paying 1:1
             moneyWonByPlayer = bet;
+            game.outputLine("wins an extra " + betText + " from the dealer");
         } else {
             // Shouldn't be any more cases here! Do this just in case.
             moneyWonByPlayer = 0;
+            game.outputLine("ERROR! Please debug");
         }
         bet = 0;
+//        if (moneyWonByPlayer==0) {
+//            game.outputLine("Finished resolving hand " + toString() + ". Its a push.");
+//        } else if (moneyWonByPlayer>0) {
+//            game.outputLine("Finished resolving hand " + toString() + ". Player has won " + game.formatMoney(moneyWonByPlayer));
+//        } else {
+//            game.outputLine("Finished resolving hand " + toString() + ". Player has lost " + game.formatMoney(-moneyWonByPlayer));
+//        }
         return moneyWonByPlayer;
     }
 
