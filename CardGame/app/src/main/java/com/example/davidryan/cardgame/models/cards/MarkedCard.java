@@ -36,12 +36,7 @@ public class MarkedCard extends PlayingCard {
             extraText = " (" + extraText + ")";
         }
         // returns marking similar to 'FIVE of CLUBS (a)'
-        return super.toString() + extraText;
-    }
-
-    @Override
-    public String describeFaceUp() {
-        return toString();
+        return super.toVerboseString() + extraText;
     }
 
     @Override

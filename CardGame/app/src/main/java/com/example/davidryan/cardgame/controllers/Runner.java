@@ -35,9 +35,9 @@ public class Runner {
         // Can display this properly in the UI
         game = new BlackjackGame(200, 10000, 50, deck, dealer, new ConsoleLogger(), new KeyboardScanner());
 
-//        Playery bob = new BotPlayer("Rich Bobbot", 45000);
-//        Playery dave = new HumanPlayer("Davehuman", 10000);
-//        Playery phil = new BotPlayer("Poor Philbot", 2000);
+//        Playery bob = new BotPlayer("Rich Bob Robot", 45000);
+//        Playery dave = new HumanPlayer("Dave", 10000);
+//        Playery phil = new BotPlayer("Poor Phillip Bot", 2000);
         Playery bot1 = new BotPlayer("Bot1", 50000);
         Playery bot2 = new BotPlayer("Bot2", 50000);
         Playery bot3 = new BotPlayer("Bot3", 50000);
