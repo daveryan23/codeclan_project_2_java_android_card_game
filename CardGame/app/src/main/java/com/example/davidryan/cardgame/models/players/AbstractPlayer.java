@@ -1,6 +1,5 @@
 package com.example.davidryan.cardgame.models.players;
 
-import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.hands.CardHand;
@@ -158,7 +157,7 @@ public abstract class AbstractPlayer implements Playery {
         if (hands.size()==0) {
             return 0;
         }
-        return hands.get(0).topCardScore();
+        return hands.get(0).firstCardScore();
     }
 
     @Override

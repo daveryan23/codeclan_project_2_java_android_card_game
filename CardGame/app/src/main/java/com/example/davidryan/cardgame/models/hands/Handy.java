@@ -32,13 +32,14 @@ public interface Handy {
     boolean canHit(Playery player);
     boolean canStand(Playery player);
     boolean canDouble(Playery player);
-
     boolean canSplit(Playery player);
+
+    boolean isBlackjack();
+    boolean isBust();
+
     int lowerScore();
     int higherScore();
-
     int finalScore();
-
-    int topCardScore();     // Ace = 11. K, Q, J = 10. Others are face value. Missing = 0.
+    int firstCardScore();     // Ace = 11. K, Q, J = 10. Others are face value. Missing = 0.
 
 }

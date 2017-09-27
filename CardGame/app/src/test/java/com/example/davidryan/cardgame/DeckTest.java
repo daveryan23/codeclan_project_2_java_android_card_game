@@ -25,14 +25,12 @@ import static org.junit.Assert.assertEquals;
 public class DeckTest {
     private DeterministicDeck fixedDeck;
     private RandomDeck randomDeck;
-    private Decky aDeck;
     private Gamey gameMock;
 
     @Before
     public void before() {
         fixedDeck = new DeterministicDeck();
         randomDeck = new RandomDeck();
-        aDeck = new DeterministicDeck();
         gameMock = Mockito.mock(Gamey.class);
     }
 

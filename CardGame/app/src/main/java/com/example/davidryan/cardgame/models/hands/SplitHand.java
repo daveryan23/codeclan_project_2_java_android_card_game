@@ -22,7 +22,8 @@ public class SplitHand extends CardHand {
         }
     }
 
-    private boolean handIsBlackJack() {
+    @Override
+    public boolean isBlackjack() {
         // Split hands cannot be a BlackJack
         // e.g. Ace and Ten are counted as 21, not as BlackJack
         // and pay at 1:1, not 3:2

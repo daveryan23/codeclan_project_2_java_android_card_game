@@ -42,7 +42,7 @@ public class BotPlayer extends AbstractPlayer {
         int higherScore = hand.higherScore();
         int dealerTopCardScore = game.dealerTopCardScore();
         boolean canSplit = hand.canSplit(this);
-        int splitCardScore = hand.topCardScore();
+        int splitCardScore = hand.firstCardScore();
 
         // Go through many cases and do sensible automated things
         // Try and cover all four options, to show that the Bot Can.

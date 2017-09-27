@@ -1,6 +1,5 @@
 package com.example.davidryan.cardgame.models.hands;
 
-import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.games.Gamey;
 import com.example.davidryan.cardgame.models.players.Playery;
@@ -59,10 +58,10 @@ public class CardHand implements Handy {
         if (0<numberOfCards) {
             theDescription = theDescription.substring(0, theDescription.length() - 2);  // Lose the trailing ', '
         }
-        if (handIsBust()) {
-            theDescription += " (" + lowerScore() + ", BUST!)";
-        } else if (handIsBlackJack()) {
-            theDescription += " ***** BLACKJACK! PARTY TIME!! *****";
+        if (isBust()) {
+            theDescription += " (" + lowerScore() + ", BUST)";
+        } else if (isBlackjack()) {
+            theDescription += " (BLACKJACK)";
         } else if (countCards()==1) {
             // no extra description needed
         } else if (lowerScore()==higherScore()) {
@@ -117,11 +116,13 @@ public class CardHand implements Handy {
         return higherScore;
     }
 
-    private boolean handIsBust() {
+    @Override
+    public boolean isBust() {
         return (lowerScore() > 21);
     }
 
-    private boolean handIsBlackJack() {
+    @Override
+    public boolean isBlackjack() {
         // Blackjack is getting a higherScore of 21 on 2 cards only.
         // This has to be an Ace and one of 10, J, Q, K
         return ( (countCards()==2) && (higherScore()==21) );
@@ -132,10 +133,10 @@ public class CardHand implements Handy {
         // This is the higherScore except for
         // 1) Bust (score 0)
         // 2) Blackjack (score 22 so it beats a hand of 21)
-        if (handIsBust()) {
+        if (isBust()) {
             return 0;
         }
-        if (handIsBlackJack()) {
+        if (isBlackjack()) {
             return 22;
         }
         return higherScore();
@@ -190,7 +191,7 @@ public class CardHand implements Handy {
 
     @Override
     public boolean canHit(Playery player) {
-        if (handIsBlackJack()) {
+        if (isBlackjack()) {
             // Cannot hit on a blackjack
             return false;
         }
@@ -350,7 +351,7 @@ public class CardHand implements Handy {
     }
 
     @Override
-    public int topCardScore() {
+    public int firstCardScore() {
         if (cards.size()==0) {
             return 0;
         }
