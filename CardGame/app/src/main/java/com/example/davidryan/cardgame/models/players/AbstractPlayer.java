@@ -90,36 +90,42 @@ public abstract class AbstractPlayer implements Playery {
         // Use a While loop, since hands could dynamically increase in size
         // e.g. if hands are added due to splits
         while (handIndex < hands.size()) {
-            game.outputLine(getName() + " starts hand " + (handIndex+1));
+            game.outputLine(getName() + " is about to commence hand " + (handIndex+1));
             Handy hand = hands.get(handIndex);
             boolean splitRequested = hand.playHand(game, this);
             if (splitRequested) {
                 // Assume split is checked on the Hand!
-                splitHand(game, hand, handIndex);
+                splitHand(game, hand);
                 game.outputLine(getName() + " has split hand " + (handIndex+1));
             }
-            game.outputLine(getName() + " ends hand " + (handIndex+1));
+            game.outputLine(getName() + " has exited hand " + (handIndex+1));
             handIndex++;
         }
         game.outputLine(getName() + " has taken a turn");
     }
 
-    private void splitHand(Gamey game, Handy hand, int handIndex) {
+    private void splitHand(Gamey game, Handy hand) {
+        game.outputLine("Splitting a hand");
         // Get all bets and cards back from the Hand
         List<Cardy> cards = hand.returnCards();
         int bet = hand.returnMoney();
+        game.outputLine("There are " + cards.size() + " cards to split and " + bet + " money to place on each");
         moneyAtRisk -= bet;
         // For each returned card, set up a new Hand
         // This should have been checked earlier when requesting split.
         for (Cardy splitCard: cards) {
-            String handLabel = getName() + " (" + handIndex + ")";
+            String handLabel = getName() + " (split " + hands.size() + ")";
             Handy newHand = new SplitHand(handLabel, bet);
             moneyAtRisk += bet;
             newHand.receiveFaceUp(splitCard);
             Cardy dealtCard = game.dealCardFromDeck();
             newHand.receiveFaceUp(dealtCard);
-            hands.add(hand);
+            hands.add(newHand);
+            game.outputLine("New hand: label '" + newHand.getLabel() + "', bet '" + newHand.getBet() + "'.");
+            game.outputLine("New hand cards: " + newHand.countCards() + " cards with top card score " + newHand.topCardScore() + ".");
+//            game.outputLine("Finished creating a new hand: " + hand.toString());
         }
+        game.outputLine("Finished splitting a hand");
     }
 
     @Override

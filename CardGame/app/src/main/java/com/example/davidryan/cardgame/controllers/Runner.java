@@ -51,10 +51,10 @@ public class Runner {
     public void run() {
         game.outputLine("Welcome to the Blackjack game!");
         game.playGame();
-//        while (!game.askUserToPlayAgain()) {
-//            // Might want to shuffle the cards every N games?
-//            game.playGame();
-//        }
+        while (!game.askUserToPlayAgain()) {
+            // Might want to shuffle the cards every N games?
+            game.playGame();
+        }
         game.outputLine("Goodbye!");
     }
 

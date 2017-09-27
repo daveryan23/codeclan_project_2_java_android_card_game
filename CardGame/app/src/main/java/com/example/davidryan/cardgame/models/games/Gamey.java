@@ -31,7 +31,7 @@ public interface Gamey {
     void reduceDealerMoney(int moneyWonByPlayer);
 
     // Input/Output
-    String formatBet(int moneyUnits);
+    String formatMoney(int moneyUnits);
     int convertBackToMoneyUnits(String inputAmount);
     void outputString(String message);
     void outputLine(String message);

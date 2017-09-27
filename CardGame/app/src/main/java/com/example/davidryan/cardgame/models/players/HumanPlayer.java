@@ -21,20 +21,29 @@ public class HumanPlayer extends AbstractPlayer {
     public int getInitialBetAmount(Gamey game) {
 
         String playerName = getName();
+        String fundsText = game.formatMoney(moneyAvailable());
         int minBet = game.minimumBet();
+        String minBetText = game.formatMoney(minBet);
         int maxBet = game.maximumBet();
+        String maxBetText = game.formatMoney(maxBet);
         int betInc = game.betIncrement();
+        String betIncText = game.formatMoney(betInc);
         int betAmount = 0;
 
         if (moneyAvailable() < minBet) {
-            game.outputLine(playerName + " has not got enough money for the minimum bet");
+            game.outputLine(playerName + " has " + fundsText + " " +
+                    "which is not enough money for the minimum bet");
         } else {
             // Get user input
-            game.outputLine("Game minimum bet is " + game.formatBet(minBet) + ", going up in steps of " + game.formatBet(betInc));
-            String betAmountString = game.askQuestion(playerName + ": how much do you want to bet?");
+            String questionText = playerName + " has " + fundsText + ". " +
+                    "Min bet " + minBetText + ", " +
+                    "goes up by " + betIncText + " " +
+                    "to max " + maxBetText + ". " +
+                    "How much to bet?";
+            String betMoney = game.askQuestion(questionText);
 
             // Parse user input
-            betAmount = game.convertBackToMoneyUnits(betAmountString);
+            betAmount = game.convertBackToMoneyUnits(betMoney);
             if (betAmount<minBet) {
                 betAmount = minBet;
             }
@@ -48,7 +57,7 @@ public class HumanPlayer extends AbstractPlayer {
             betAmount -= theRes;
             // Should now have a bet amount compatible with the minimum bet and bet increment
 
-            game.outputLine(playerName + " has bet " + game.formatBet(betAmount) + " on this hand");
+            game.outputLine(playerName + " has bet " + game.formatMoney(betAmount) + " on this hand");
         }
         return betAmount;
     }

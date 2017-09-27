@@ -15,7 +15,7 @@ public class ConsoleLogger implements Loggy {
     public void outputString(String message) {
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(10);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         } finally {
@@ -28,7 +28,7 @@ public class ConsoleLogger implements Loggy {
     public void outputLine(String message) {
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(10);
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         } finally {

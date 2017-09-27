@@ -18,14 +18,15 @@ public class BotPlayer extends AbstractPlayer {
     public int getInitialBetAmount(Gamey game) {
 
         String playerName = getName();
+        String fundsText = game.formatMoney(moneyAvailable());
         int minBet = game.minimumBet();
         int betAmount = 0;
 
         if (moneyAvailable() < minBet) {
-            game.outputLine(playerName + " has not got enough money for the minimum bet");
+            game.outputLine(playerName + " has " + fundsText + " which is not enough money for the minimum bet");
         } else {
             betAmount = minBet;
-            game.outputLine(playerName + " has bet " + game.formatBet(betAmount) + " on this hand");
+            game.outputLine(playerName + " has " + fundsText + " and has bet " + game.formatMoney(betAmount) + " on this hand");
         }
 
         return betAmount;

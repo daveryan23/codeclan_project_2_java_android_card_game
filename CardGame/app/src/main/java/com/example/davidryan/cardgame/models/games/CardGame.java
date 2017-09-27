@@ -75,7 +75,7 @@ public abstract class CardGame implements Gamey {
         return inputLine();
     }
 
-    public String formatBet(int moneyUnits) {
+    public String formatMoney(int moneyUnits) {
         String result = "£" + (0.01*moneyUnits) + "0";
         // Use String.format
         // Even better, use Currency from locale!

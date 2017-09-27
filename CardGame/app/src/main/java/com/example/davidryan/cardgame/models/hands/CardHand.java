@@ -56,7 +56,7 @@ public class CardHand implements Handy {
             theDescription += textToAdd + ", ";
         }
         theDescription = theDescription.substring(0, theDescription.length() - 2);  // Lose the trailing ', '
-        if (1<countCards()) {
+        if (1<countCards() || higherScore()>9) {
             if (lowerScore()==higherScore()) {
                 theDescription += " (" + lowerScore() + ")";
             } else {
