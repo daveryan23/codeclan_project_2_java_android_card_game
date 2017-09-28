@@ -23,10 +23,10 @@ public class BotPlayer extends AbstractPlayer {
         int betAmount = 0;
 
         if (moneyAvailable() < minBet) {
-            game.outputLine(playerName + " has " + fundsText + " which is not enough money for the minimum bet");
+            game.outputLine(playerName + " has " + fundsText + " which is not enough money for the minimum bet", true);
         } else {
             betAmount = minBet;
-            game.outputLine(playerName + " has " + fundsText + " and has bet " + game.formatMoney(betAmount) + " on this hand");
+            game.outputLine(playerName + " has " + fundsText + " and has bet " + game.formatMoney(betAmount) + " on this hand", true);
         }
 
         return betAmount;

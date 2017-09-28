@@ -25,14 +25,15 @@ public interface Playery {
     void resolveBets(Gamey game, int score);
     void incrementMoney(int money);
     void riskMoney(int moneyAtRisk);
-
     // Methods mainly for the dealer
     int topCardScore();
+
     int getScoreOfFirstHand();
     String describeFirstHand();
 
     // Methods to override in concrete subclasses
     int getInitialBetAmount(Gamey game);
     HandDecisions makeDecision(Gamey game, Handy hand);
+    void informEndOfTurn(Gamey game);
 
 }

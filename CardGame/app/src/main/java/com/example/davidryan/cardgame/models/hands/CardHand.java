@@ -260,19 +260,19 @@ public class CardHand implements Handy {
             if (choices<2) {
                 // Player can only Stand. Exit loop.
                 stillLooping = false;
-                game.outputLine(playerName + " ends with " + describeCards());
+                game.outputLine(playerName + " ends with " + describeCards(), true);
             } else {
                 playerDecision = player.makeDecision(game, this);
                 Cardy card;
                 switch (playerDecision) {
                     case STAND:
                         stillLooping = false;
-                        game.outputLine(playerName + " STANDS on " + describeCards());
+                        game.outputLine(playerName + " STANDS on " + describeCards(), true);
                         break;
                     case SPLIT:
                         stillLooping = false;
                         splitRequested = true;
-                        game.outputLine(playerName + " SPLITS " + describeCards() + " into new hands");
+                        game.outputLine(playerName + " SPLITS " + describeCards() + " into new hands", true);
                         break;
                     case DOUBLE:
                         // Have to double bet, take exactly one more card, and then stop
@@ -282,13 +282,13 @@ public class CardHand implements Handy {
                         card = game.dealCardFromDeck();
                         receiveFaceUp(card);
                         stillLooping = false;
-                        game.outputLine(playerName + " DOUBLES bet, receives " + card.describeFaceUp() + " to finish on " + describeCards());
+                        game.outputLine(playerName + " DOUBLES bet, receives " + card.describeFaceUp() + " to finish on " + describeCards(), true);
                         break;
                     case HIT:
                         // Deal 1 more card, and continue loop
                         card = game.dealCardFromDeck();
                         receiveFaceUp(card);
-                        game.outputLine(playerName + " HITS, receives " + card.describeFaceUp() + " to give " + describeCards());
+                        game.outputLine(playerName + " HITS, receives " + card.describeFaceUp() + " to give " + describeCards(), true);
                         break;
                     default:
                         // We should not be here!
@@ -298,55 +298,49 @@ public class CardHand implements Handy {
             }
         }
         game.outputLine(toString() + " with bet " + game.formatMoney(getBet()) + " and dealer score " + game.dealerTopCardScore() + " - hand ends");
+        player.informEndOfTurn(game);
         return splitRequested;
     }
 
     @Override
     public int resolveBet(Gamey game, Playery player, int dealerScore) {
         if (dealerScore==22) {
-            game.outputString("Dealer has BLACKJACK, ");
+            game.outputString("Dealer has BLACKJACK, ", true);
         } else if (dealerScore==0) {
-            game.outputString("Dealer is BUST, ");
+            game.outputString("Dealer is BUST, ", true);
         } else {
-            game.outputString("Dealer has " + dealerScore + ", ");
+            game.outputString("Dealer has " + dealerScore + ", ", true);
         }
         String betText = game.formatMoney(bet);
-        game.outputString(toString() + ", bet " + betText + ", ");
+        game.outputString(toString() + ", bet " + betText + ", ", true);
         int handScore = finalScore();
         int moneyWonByPlayer;
         if (handScore == 0) {
             // Player bust (irrespective of whether dealer bust)
             moneyWonByPlayer = -bet;
-            game.outputLine("loses " + betText + " by going bust");
+            game.outputLine("loses " + betText + " by going bust", true);
         } else if (handScore == dealerScore) {
             // Equal score > 0, its a Push (including player and dealer blackjacks)
             moneyWonByPlayer = 0;
-            game.outputLine("their bet of " + betText + " is returned");
+            game.outputLine("their bet of " + betText + " is returned", true);
         } else if (handScore < dealerScore) {
             // Dealer wins, including dealer blackjack
             moneyWonByPlayer = -bet;
-            game.outputLine("loses " + betText + " to the dealer");
+            game.outputLine("loses " + betText + " to the dealer", true);
         } else if (handScore == 22) {
             // Player wins with blackjack, paying 3:2
             moneyWonByPlayer = (int) (1.5 * bet);
-            game.outputLine("wins an extra " + game.formatMoney(moneyWonByPlayer) + " from the dealer");
+            game.outputLine("wins an extra " + game.formatMoney(moneyWonByPlayer) + " from the dealer", true);
         } else if (handScore > dealerScore) {
             // Player wins with better non-blackjack hand than dealer, paying 1:1
             moneyWonByPlayer = bet;
-            game.outputLine("wins an extra " + betText + " from the dealer");
+            game.outputLine("wins an extra " + betText + " from the dealer", true);
         } else {
             // Shouldn't be any more cases here! Do this just in case.
             moneyWonByPlayer = 0;
             game.outputLine("ERROR! Please debug");
         }
         bet = 0;
-//        if (moneyWonByPlayer==0) {
-//            game.outputLine("Finished resolving hand " + toString() + ". Its a push.");
-//        } else if (moneyWonByPlayer>0) {
-//            game.outputLine("Finished resolving hand " + toString() + ". Player has won " + game.formatMoney(moneyWonByPlayer));
-//        } else {
-//            game.outputLine("Finished resolving hand " + toString() + ". Player has lost " + game.formatMoney(-moneyWonByPlayer));
-//        }
         return moneyWonByPlayer;
     }
 

@@ -34,7 +34,9 @@ public interface Gamey {
     String formatMoney(int moneyUnits);
     int convertBackToMoneyUnits(String inputAmount);
     void outputString(String message);
+    void outputString(String message, boolean highPriority);
     void outputLine(String message);
+    void outputLine(String message, boolean highPriority);
     String inputLine();
     String askQuestion(String message);
 

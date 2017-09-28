@@ -103,6 +103,7 @@ public abstract class AbstractPlayer implements Playery {
             handIndex++;
         }
         game.outputLine(getName() + " has finished a turn");
+        game.outputLine("", true);
     }
 
     private void splitHand(Gamey game, Handy hand) {
@@ -110,7 +111,7 @@ public abstract class AbstractPlayer implements Playery {
         // Get all bets and cards back from the Hand
         List<Cardy> cards = hand.returnCards();
         int bet = hand.returnMoney();
-        game.outputLine("There are " + cards.size() + " cards to split and " + game.formatMoney(bet) + " to place on each");
+        game.outputLine("There are " + cards.size() + " cards to split and " + game.formatMoney(bet) + " to place on each", true);
         moneyAtRisk -= bet;
         // For each returned card, set up a new Hand
         // This should have been checked earlier when requesting split.
@@ -125,8 +126,7 @@ public abstract class AbstractPlayer implements Playery {
             game.outputLine("New hand:" + newHand.getLabel() + ", " +
                     "bet " + game.formatMoney(newHand.getBet()) + ", " +
                     "new hand is " + newHand.describeCards()
-            );
-//            game.outputLine("Finished creating a new hand: " + hand.toString());
+            , true);
         }
         game.outputLine("Finished splitting a hand");
     }
@@ -147,7 +147,7 @@ public abstract class AbstractPlayer implements Playery {
             }
         }
         moneyAtRisk = 0;
-        game.outputLine(getName() + " finishes on " + game.formatMoney(money));
+        game.outputLine(getName() + " finishes on " + game.formatMoney(money), true);
     }
 
     // DEALER METHODS
@@ -187,6 +187,11 @@ public abstract class AbstractPlayer implements Playery {
     @Override
     public HandDecisions makeDecision(Gamey game, Handy hand) {
         return HandDecisions.STAND;
+    }
+
+    @Override
+    public void informEndOfTurn(Gamey game) {
+        // Default behaviour is to do nothing
     }
 
 }

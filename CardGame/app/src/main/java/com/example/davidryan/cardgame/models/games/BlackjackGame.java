@@ -21,8 +21,8 @@ public class BlackjackGame extends CardGame {
     private Playery dealer;
     private List<Playery> players;
 
-    public BlackjackGame(int minimumBet, int maximumBet, int betIncrement, Decky deck, Playery dealer, Loggy logger, Scanny scanner) {
-        super(deck, logger, scanner);
+    public BlackjackGame(int minimumBet, int maximumBet, int betIncrement, Decky deck, Playery dealer, Scanny scanner, Loggy logger, boolean outputOnlyHighPriority) {
+        super(deck, scanner, logger, outputOnlyHighPriority);
         this.minimumBet = minimumBet;
         this.maximumBet = maximumBet;
         this.betIncrement = betIncrement;
@@ -75,8 +75,8 @@ public class BlackjackGame extends CardGame {
     }
 
     public void playGame() {
-        outputLine("");
-        outputLine("Starting a new round of blackjack");
+        outputLine("", true);
+        outputLine("Starting a new round of blackjack", true);
         // Might want to shuffle the cards every game?
         outputLine(getDeck().sneakAPeekAtTheCards(this));
         checkPlayersAndDealerReset();
@@ -91,7 +91,7 @@ public class BlackjackGame extends CardGame {
         outputLine(getDeck().sneakAPeekAtTheCards(this));
         returnAllPlayerAndDealerCards();
         outputLine(getDeck().sneakAPeekAtTheCards(this));
-        outputLine("This round of blackjack is complete!");
+        outputLine("This round of blackjack is complete!", true);
     }
 
     private void checkPlayersAndDealerReset() {
@@ -104,6 +104,7 @@ public class BlackjackGame extends CardGame {
     }
 
     private void placeInitialBets() {
+        outputLine("", true);
         outputLine("Placing initial bets now");
         for (Playery player: players) {
             boolean playerPlaying = player.setupInitialBetAndHand(this);
@@ -114,6 +115,7 @@ public class BlackjackGame extends CardGame {
         }
         dealer.setupInitialBetAndHand(this);
         outputLine("Initial bets have been placed");
+        outputLine("", true);
     }
 
     private void dealFaceUpTo(Playery player) {
@@ -153,14 +155,14 @@ public class BlackjackGame extends CardGame {
     }
 
     private void resolveAllBets(int score) {
-        outputLine("");
+        outputLine("", true);
         outputLine("About to resolve all the player bets - dealer has " + formatMoney(dealer.moneyAvailable()));
         for (Playery player: players) {
             player.resolveBets(this, score);
         }
         outputLine("");
-        outputLine("Player bets have been resolved - dealer has " + formatMoney(dealer.moneyAvailable()));
-        outputLine("");
+        outputLine("Player bets have been resolved - dealer has " + formatMoney(dealer.moneyAvailable()), true);
+        outputLine("", true);
     }
 
     private void returnAllPlayerAndDealerCards() {

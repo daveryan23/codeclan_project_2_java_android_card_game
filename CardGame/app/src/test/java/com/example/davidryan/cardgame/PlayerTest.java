@@ -70,7 +70,6 @@ public class PlayerTest {
 
     @Test
     public void testReset() {
-        harry
         harry.reset(gameMock);
         assertEquals(1, 1);
     }

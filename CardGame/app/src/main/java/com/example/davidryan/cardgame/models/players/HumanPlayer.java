@@ -80,8 +80,7 @@ public class HumanPlayer extends AbstractPlayer {
         HandDecisions result = HandDecisions.STAND;
         boolean needChoice = true;
         while (needChoice) {
-            game.outputString("Dealer has " + game.describeDealerHand());
-            game.outputString( " and " + hand.toString());
+            questionText = "Dealer has " + game.describeDealerHand() +  " and " + hand.toString() + questionText;
             String decision = game.askQuestion(questionText);
 
             if (decision.length()>0) {
@@ -105,6 +104,11 @@ public class HumanPlayer extends AbstractPlayer {
             }
         }
         return result;
+    }
+
+    @Override
+    public void informEndOfTurn(Gamey game) {
+        game.askQuestion(getName() + " ends turn. Please hit ENTER to continue? ");
     }
 
 }

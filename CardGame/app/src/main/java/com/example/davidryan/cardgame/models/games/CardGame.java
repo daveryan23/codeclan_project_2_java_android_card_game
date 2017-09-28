@@ -15,11 +15,13 @@ public abstract class CardGame implements Gamey {
     private Decky deck;
     private Loggy logger;
     private Scanny scanner;
+    private boolean outputOnlyHighPriority;
 
-    public CardGame(Decky deck, Loggy logger, Scanny scanner){
+    public CardGame(Decky deck, Scanny scanner, Loggy logger, boolean outputOnlyHighPriority){
         this.deck = deck;
-        this.logger = logger;
         this.scanner = scanner;
+        this.logger = logger;
+        this.outputOnlyHighPriority = outputOnlyHighPriority;
     }
 
     @Override
@@ -56,12 +58,26 @@ public abstract class CardGame implements Gamey {
 
     @Override
     public void outputString(String message) {
-        logger.outputString(message);
+        outputString(message, false);
     }
 
     @Override
     public void outputLine(String message) {
-        logger.outputLine(message);
+        outputLine(message, false);
+    }
+
+    @Override
+    public void outputString(String message, boolean highPriority) {
+        if (!outputOnlyHighPriority || highPriority) {
+            logger.outputString(message);
+        }
+    }
+
+    @Override
+    public void outputLine(String message, boolean highPriority) {
+        if (!outputOnlyHighPriority || highPriority) {
+            logger.outputLine(message);
+        }
     }
 
     @Override
@@ -71,7 +87,7 @@ public abstract class CardGame implements Gamey {
 
     @Override
     public String askQuestion(String message) {
-        outputString(message + " ");
+        outputString(message + " ", true);
         return inputLine();
     }
 

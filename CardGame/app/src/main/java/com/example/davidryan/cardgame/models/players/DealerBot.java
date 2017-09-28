@@ -21,7 +21,7 @@ public class DealerBot extends BotPlayer {
         String playerName = getName();
         String fundsText = game.formatMoney(moneyAvailable());
         int betAmount = 0;
-        game.outputLine(playerName + " is a dealer with " + fundsText + " and cannot bet independently");
+        game.outputLine(playerName + " is a dealer with " + fundsText + " and cannot bet independently", true);
         return betAmount;
     }
 

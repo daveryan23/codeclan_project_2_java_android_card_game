@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ffcdfe3f-5503-43ed-9068-09f4003e5ba5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/CardAttributesTest.java" afterPath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/CardAttributesTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/CardTest.java" afterPath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/CardTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/DeckTest.java" afterPath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/DeckTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/GameTest.java" afterPath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/GameTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/HandTest.java" afterPath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/HandTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/controllers/Runner.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/controllers/Runner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/games/BlackjackGame.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/games/BlackjackGame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/games/CardGame.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/games/CardGame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/games/Gamey.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/games/Gamey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/hands/CardHand.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/hands/CardHand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/AbstractPlayer.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/AbstractPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/BotPlayer.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/BotPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/DealerBot.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/DealerBot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/HumanPlayer.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/HumanPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/Playery.java" afterPath="$PROJECT_DIR$/CardGame/app/src/main/java/com/example/davidryan/cardgame/models/players/Playery.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/PlayerTest.java" afterPath="$PROJECT_DIR$/CardGame/app/src/test/java/com/example/davidryan/cardgame/PlayerTest.java" />
     </list>
     <ignored path="project_2_java_android.iws" />
@@ -64,13 +70,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane />
       </pane>
       <pane id="ProjectPane" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,6 +156,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ffcdfe3f-5503-43ed-9068-09f4003e5ba5" name="Default" comment="" />
@@ -165,18 +174,18 @@
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24517685" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
