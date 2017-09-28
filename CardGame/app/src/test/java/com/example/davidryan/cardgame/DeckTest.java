@@ -1,12 +1,10 @@
 package com.example.davidryan.cardgame;
 
-import com.example.davidryan.cardgame.models.cards.Cardy;
-import com.example.davidryan.cardgame.models.cards.PlayingCard;
 import com.example.davidryan.cardgame.models.cardattributes.Suits;
 import com.example.davidryan.cardgame.models.cardattributes.Values;
-import com.example.davidryan.cardgame.models.decks.Decky;
-import com.example.davidryan.cardgame.models.decks.RandomDeck;
+import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.decks.DeterministicDeck;
+import com.example.davidryan.cardgame.models.decks.RandomDeck;
 import com.example.davidryan.cardgame.models.games.Gamey;
 
 import org.junit.Before;
@@ -134,6 +132,14 @@ public class DeckTest {
         fixedDeck.shuffle();
         assertEquals(1, 1);
     }
+
+//    //WRITE MORE TESTS!
+//
+//    @Test
+//    public void testX() {
+//        assertEquals(1, 1);
+//    }
+//
 
 
 }

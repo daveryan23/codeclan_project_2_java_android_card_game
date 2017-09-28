@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by davidryan on 27/09/2017.
@@ -31,7 +30,7 @@ public class HandTest {
     private PlayingCard fiveClubs;
     private PlayingCard fiveDiamonds;
     private PlayingCard four;
-    private PlayingCard twoMarked;
+    private MarkedCard twoMarked;
 
     private CardHand hand;
     private SplitHand splitHand;
@@ -368,22 +367,7 @@ public class HandTest {
         assertEquals(-45, splitHand.resolveBet(gameMock, humanPlayer, 22));
     }
 
-
-
-//    @Test
-//    public void testX() {
-//        assertEquals(1, 1);
-//    }
-//
-//    @Test
-//    public void testX() {
-//        assertEquals(1, 1);
-//    }
-//
-//    @Test
-//    public void testX() {
-//        assertEquals(1, 1);
-//    }
+//    //WRITE MORE TESTS!
 //
 //    @Test
 //    public void testX() {

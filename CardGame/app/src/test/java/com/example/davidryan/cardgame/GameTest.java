@@ -1,22 +1,5 @@
 package com.example.davidryan.cardgame;
 
-import com.example.davidryan.cardgame.models.cards.PlayingCard;
-import com.example.davidryan.cardgame.models.decks.Decky;
-import com.example.davidryan.cardgame.models.cardattributes.Suits;
-import com.example.davidryan.cardgame.models.cardattributes.Values;
-import com.example.davidryan.cardgame.models.decks.RandomDeck;
-import com.example.davidryan.cardgame.models.decks.DeterministicDeck;
-import com.example.davidryan.cardgame.models.players.AbstractPlayer;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 /**
  * Created by davidryan on 22/09/2017.
  */
@@ -131,5 +114,14 @@ public class GameTest {
 //        assertEquals(0, gaby.getWinCount());
 //        assertEquals(1, jaguar.getWinCount());
 //    }
+
+//    //WRITE MORE TESTS!
+//
+//    @Test
+//    public void testX() {
+//        assertEquals(1, 1);
+//    }
+//
+
 
 }

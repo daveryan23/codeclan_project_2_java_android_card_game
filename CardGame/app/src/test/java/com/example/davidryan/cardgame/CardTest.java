@@ -1,10 +1,10 @@
 package com.example.davidryan.cardgame;
 
+import com.example.davidryan.cardgame.models.cardattributes.Suits;
+import com.example.davidryan.cardgame.models.cardattributes.Values;
 import com.example.davidryan.cardgame.models.cards.Cardy;
 import com.example.davidryan.cardgame.models.cards.MarkedCard;
 import com.example.davidryan.cardgame.models.cards.PlayingCard;
-import com.example.davidryan.cardgame.models.cardattributes.Suits;
-import com.example.davidryan.cardgame.models.cardattributes.Values;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -109,5 +109,14 @@ public class CardTest {
     public void testMarkedToVerboseString() {
         assertEquals("NINE of DIAMONDS (x)", markedNineOfDiamonds.toVerboseString());
     }
+
+//    //WRITE MORE TESTS!
+//
+//    @Test
+//    public void testX() {
+//        assertEquals(1, 1);
+//    }
+//
+
 
 }

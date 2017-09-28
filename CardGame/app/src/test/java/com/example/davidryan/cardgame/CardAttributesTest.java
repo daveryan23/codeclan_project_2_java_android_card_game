@@ -60,4 +60,13 @@ public class CardAttributesTest {
         assertEquals(2, Values.TWO.SCORE());
     }
 
+//    //WRITE MORE TESTS!
+//
+//    @Test
+//    public void testX() {
+//        assertEquals(1, 1);
+//    }
+//
+
+
 }
