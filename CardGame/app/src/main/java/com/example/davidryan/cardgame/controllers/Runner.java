@@ -26,13 +26,13 @@ public class Runner {
 //        Decky deck = new DeterministicDeck();
 
         // Choose packs of cards:
-        deck.addPacksOfCards(1);
+//        deck.addPacksOfCards(1);
 //        deck.addMarkedPacksOfCards(1);
-//        deck.addMarkedPacksOfCards(4);
+        deck.addMarkedPacksOfCards(4);
 
         // Choose output verbosity:
-        boolean outputOnlyHighPriority = true;
-//        boolean outputOnlyHighPriority = false;
+//        boolean outputOnlyHighPriority = true;
+        boolean outputOnlyHighPriority = false;
 
         // END OF USER OPTIONS
 
