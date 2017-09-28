@@ -1,7 +1,6 @@
 package com.example.davidryan.cardgame.controllers;
 
 import com.example.davidryan.cardgame.models.decks.Decky;
-import com.example.davidryan.cardgame.models.decks.DeterministicDeck;
 import com.example.davidryan.cardgame.models.decks.RandomDeck;
 import com.example.davidryan.cardgame.models.games.BlackjackGame;
 import com.example.davidryan.cardgame.models.players.BotPlayer;
@@ -10,8 +9,6 @@ import com.example.davidryan.cardgame.models.players.HumanPlayer;
 import com.example.davidryan.cardgame.models.players.Playery;
 import com.example.davidryan.cardgame.views.inputs.ConsoleLogger;
 import com.example.davidryan.cardgame.views.outputs.KeyboardScanner;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by davidryan on 25/09/2017.
@@ -29,8 +26,9 @@ public class Runner {
 //        Decky deck = new DeterministicDeck();
 
         // Choose packs of cards:
-        deck.setupWithPacks(1);
-//        deck.setupWithMarkedPacks(4);
+        deck.addPacksOfCards(1);
+//        deck.addMarkedPacksOfCards(1);
+//        deck.addMarkedPacksOfCards(4);
 
         // Choose output verbosity:
         boolean outputOnlyHighPriority = true;

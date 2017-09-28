@@ -59,7 +59,7 @@ public class DeckTest {
 
     @Test
     public void testRandomDeckWithFiftyTwoCards() {
-        randomDeck.setupWithPacks(1);
+        randomDeck.addPacksOfCards(1);
         System.out.println("Underneath fifty two different cards should be dealt in a random order, then null.");
         for (int i=0; i<53; i++) {
             System.out.println(randomDeck.deal());
@@ -86,7 +86,7 @@ public class DeckTest {
 
     @Test
     public void testFixedDeckWithFiftyTwoCards() {
-        fixedDeck.setupWithPacks(1);
+        fixedDeck.addPacksOfCards(1);
         System.out.println("Underneath fifty two different cards should be dealt in a fixed order, then start repeating");
         for (int i=0; i<56; i++) {
             System.out.println(fixedDeck.deal());
@@ -110,7 +110,7 @@ public class DeckTest {
 
     @Test
     public void testSetupMarkedPacks() {
-        fixedDeck.setupWithMarkedPacks(2);
+        fixedDeck.addMarkedPacksOfCards(2);
         assertEquals(104, fixedDeck.numberOfCards());
     }
 

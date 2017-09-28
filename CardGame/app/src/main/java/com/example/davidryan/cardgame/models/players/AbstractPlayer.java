@@ -79,6 +79,7 @@ public abstract class AbstractPlayer implements Playery {
     @Override
     public void dealInitialCard(Gamey game, Cardy card) {
         // This will go to the first (and presumably only) hand
+//        hands.get(0).receiveFaceDown(card);
         hands.get(0).receiveFaceUp(card);
     }
 

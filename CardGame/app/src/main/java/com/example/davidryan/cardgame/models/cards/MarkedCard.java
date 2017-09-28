@@ -26,7 +26,7 @@ public class MarkedCard extends PlayingCard {
     @Override
     public String toString() {
         // returns marking similar to '5Ca'
-        return super.toString() + getMarking();
+        return super.toString() + (char)27 + "[32m" + getMarking() + (char)27 + "[0m";
     }
 
     @Override

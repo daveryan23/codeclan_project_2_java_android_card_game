@@ -13,8 +13,8 @@ public interface Decky {
 
     Cardy deal();
     void returnCards(List<Cardy> cards);
-    void setupWithPacks(int numberOfPacks);
-    void setupWithMarkedPacks(int numberOfPacks);
+    void addPacksOfCards(int numberOfPacks);
+    void addMarkedPacksOfCards(int numberOfPacks);
     void setupTestSet();
     int numberOfCards();
     void shuffle();

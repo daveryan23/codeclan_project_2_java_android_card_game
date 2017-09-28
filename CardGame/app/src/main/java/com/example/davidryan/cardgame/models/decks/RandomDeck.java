@@ -38,12 +38,12 @@ public class RandomDeck implements Decky {
     }
 
     @Override
-    public void setupWithPacks(int numberOfPacks) {
+    public void addPacksOfCards(int numberOfPacks) {
         privateSetupWithPacks(numberOfPacks, false);
     }
 
     @Override
-    public void setupWithMarkedPacks(int numberOfPacks) {
+    public void addMarkedPacksOfCards(int numberOfPacks) {
         privateSetupWithPacks(numberOfPacks, true);
     }
 
