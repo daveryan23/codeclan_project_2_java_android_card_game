@@ -41,9 +41,37 @@ public class PlayingCard implements Cardy {
         return value.SCORE();
     }
 
+    private String colourStart() {
+        switch (getSuit()) {
+            case DIAMONDS:
+            case HEARTS:
+                return red();
+            case SPADES:
+            case CLUBS:
+                return blue();
+        }
+        return "";
+    }
+
+    private String colourEnd() {
+        return clearFormats();
+    }
+
+    private String red() {
+        return (char)27 + "[31m";
+    }
+
+    private String blue() {
+        return (char)27 + "[34m";
+    }
+
+    private String clearFormats() {
+        return (char)27 + "[0m";
+    }
+
     @Override
     public String toString() {
-        return value.SYMBOL() + suit.SYMBOL();
+        return colourStart() + value.SYMBOL() + suit.SYMBOL() + colourEnd();
     }
 
     @Override
