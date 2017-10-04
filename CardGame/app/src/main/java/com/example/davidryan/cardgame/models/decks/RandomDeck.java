@@ -62,7 +62,7 @@ public class RandomDeck implements Decky {
     }
 
     @Override
-    public void setupTestSet() {
+    public void addTestSet() {
         cards.add(new PlayingCard(Values.TEN, Suits.CLUBS));
         cards.add(new PlayingCard(Values.ACE, Suits.SPADES));
         cards.add(new MarkedCard(Values.ACE, Suits.CLUBS));
@@ -107,4 +107,8 @@ public class RandomDeck implements Decky {
         }
     }
 
+    @Override
+    public ArrayList<Cardy> getCardArray() {
+        return new ArrayList(cards);
+    }
 }

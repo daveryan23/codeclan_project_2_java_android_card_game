@@ -34,7 +34,7 @@ public class DeckTest {
 
     @Test
     public void testDeck() {
-        fixedDeck.setupTestSet();
+        fixedDeck.addTestSet();
         assertEquals(8, fixedDeck.numberOfCards());
         Cardy card = fixedDeck.deal();
         assertEquals(7, fixedDeck.numberOfCards());
@@ -44,7 +44,7 @@ public class DeckTest {
 
     @Test
     public void testRandomDeckWithEightCards() {
-        randomDeck.setupTestSet();
+        randomDeck.addTestSet();
         System.out.println("Underneath eight cards should be dealt in a random order, then null.");
         System.out.println(randomDeck.deal());
         System.out.println(randomDeck.deal());
@@ -68,7 +68,7 @@ public class DeckTest {
 
     @Test
     public void testFixedDeckWithEightCards() {
-        fixedDeck.setupTestSet();
+        fixedDeck.addTestSet();
         System.out.println("Underneath eight cards should be dealt in a fixed order, then start repeating");
         System.out.println(fixedDeck.deal());
         System.out.println(fixedDeck.deal());
@@ -96,8 +96,8 @@ public class DeckTest {
 
     @Test
     public void testReturningMultipleCards() {
-        fixedDeck.setupTestSet();
-        randomDeck.setupTestSet();
+        fixedDeck.addTestSet();
+        randomDeck.addTestSet();
         Cardy card1 = randomDeck.deal();
         Cardy card2 = randomDeck.deal();
         List<Cardy> cards = new ArrayList<>();
@@ -117,7 +117,7 @@ public class DeckTest {
     @Test
     public void testSneakPeakBeforeAndAfterCardsAddedToDeck() {
         fixedDeck.sneakAPeekAtTheCards(gameMock);
-        fixedDeck.setupTestSet();
+        fixedDeck.addTestSet();
         fixedDeck.sneakAPeekAtTheCards(gameMock);
         assertEquals(1, 1);
     }
@@ -125,10 +125,10 @@ public class DeckTest {
     @Test
     public void testShuffle() {
         randomDeck.shuffle();
-        randomDeck.setupTestSet();
+        randomDeck.addTestSet();
         randomDeck.shuffle();
         fixedDeck.shuffle();
-        fixedDeck.setupTestSet();
+        fixedDeck.addTestSet();
         fixedDeck.shuffle();
         assertEquals(1, 1);
     }

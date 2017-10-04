@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">CardGame</string>
+    <string name="app_name">Android Demo for BlackJack</string>
+    <string name="view_a_deck">View a Deck</string>
 </resources>
